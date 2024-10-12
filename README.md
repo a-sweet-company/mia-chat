@@ -11,7 +11,6 @@ Bem-vindo ao projeto **Sarah**, uma assistente virtual desenvolvida para proporc
 1. [Pré-requisitos](#pré-requisitos)
 2. [Instalação](#instalação)
 3. [Cronograma Scrum](#cronograma-scrum)
-4. [Templates de PR e Issues](#templates-de-pr-e-issues)
 5. [Documentação Completa](#documentação-completa)
 
 ---
