@@ -38,7 +38,8 @@ Siga os passos abaixo para configurar o projeto localmente:
 
    ```bash
    npm install
-
+   npm install axios
+   npm install vue
    
 3. **Instalar dependências do back-end**:
 
