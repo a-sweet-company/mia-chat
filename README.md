@@ -37,10 +37,17 @@ Siga os passos abaixo para configurar o projeto localmente:
 2. **Instalar dependências do front-end**:
 
    ```bash
-   npm install -g @vue/cli
    npm install
+   npm install -g @fortawesome/fontawesome-free@6.6.0
+   npm install -g @vue/cli-plugin-babel@5.0.8
+   npm install -g @vue/cli-plugin-router@5.0.8
+   npm install -g @vue/cli-service@5.0.8
+   npm install -g core-js@3.38.1
+   npm install -g vue-router@3.6.5
+   npm install -g vue-template-compiler@2.7.16
+   npm install -g vue@2.7.16
    npm install axios
-   npm install vue
+   
    
 3. **Instalar dependências do back-end**:
 
