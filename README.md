@@ -37,6 +37,7 @@ Siga os passos abaixo para configurar o projeto localmente:
 2. **Instalar dependências do front-end**:
 
    ```bash
+   npm install -g @vue/cli
    npm install
    npm install axios
    npm install vue
