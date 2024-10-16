@@ -1,6 +1,7 @@
 <template>
     <header>
       <div class="navbar">
+        <!-- <img class="logo" src="../assets/sweet-logo.png" alt="Sarah"> -->
         <a href="#">Home</a>
         <a href="#">Sobre</a>
         <a href="#">Chat</a>

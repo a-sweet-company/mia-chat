@@ -10,3 +10,7 @@
     --footer-color: #6696F5;
     --header-color: #FFF7E5;
   }
+
+  body{
+    font-family: 'Jost', sans-serif; 
+  }

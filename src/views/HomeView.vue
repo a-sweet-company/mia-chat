@@ -1,13 +1,27 @@
 <template>
     <div class="home-container">
       <Header />
+      
+      <head>
+      <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+      </head>
+
   
       <main class="main-content">
         <!-- Container Esquerdo -->
         <section class="left-container">
           <h1>Não fique sozinho,</h1>
-          <p>Converse com alguém que entende você.</p>
+          <h2>Converse com alguém que entende você.</h2>
           <div class="subscribe-section">
+            <div class="sarah-section">
+              <div class="lado-esquerdo">
+                <img class="avatar-sarah" src="../assets/sarah-avatar-2-removebg-preview 1.png" alt="Sarah" />
+              </div>
+              <div class="lado-direito">
+                <img class="logo-sarah" src="../assets/sarah-color-logo.png" alt="Sarah"/>
+                <button class="sarah-button" type="submit">Conhecer Sarah</button>
+              </div>
+            </div>
             <p>Receba atualizações exclusivas e seja um dos primeiros a experimentar novas funcionalidades.</p>
             <form @submit.prevent="subscribe">
               <input type="email" placeholder="Digite seu email" v-model="email" />
@@ -61,17 +75,6 @@
   </script>
   
   <style scoped>
-  /* Paleta de cores */
-  :root {
-    --blue-color: #0055FF;
-    --green-color: #26C467;
-    --red-color: #FF5454;
-    --yellow-color: #FFD400;
-    --sarahPink-color: #FFC5DB;
-    --background-color: #FFF7E5;
-    --h1-color: #000000;
-  }
-  
   /* Layout geral */
   .home-container {
     display: flex;
@@ -80,7 +83,7 @@
     min-height: 100vh;
     background-color: var(--background-color);
     color: var(--h1-color);
-    font-family: 'Arial', sans-serif;
+    font-family: 'Jost', sans-serif; 
     overflow-x: hidden;
   }
   
@@ -104,20 +107,35 @@
   .left-container h1 {
     font-size: 2.5rem;
     color: var(--h1-color);
-    margin-bottom: 10px;
-    text-align: center;
+    margin-bottom: -10px;
+    text-align: start;
+    width: 87%;
+    border: 1px solid black;
+  }
+  
+  .left-container h2 {
+    font-size: 1.5rem;
+    color: var(--h2-color);
+    margin-bottom: 5px;
+    text-align: start;
+    width: 87%;
+    border: 1px solid black;
   }
   
   .left-container p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    text-align: center;
+    font-size: 1.0rem;
+    margin-bottom: 10px;
+    margin-left: 3vw;
+    width: 90%;
+    text-align: start;
+    color: var(--h2-color);
   }
   
   .subscribe-section {
     width: 100%;
     text-align: center;
   }
+  
   
   .subscribe-section form {
     display: flex;
