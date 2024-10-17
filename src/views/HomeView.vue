@@ -160,6 +160,7 @@
     border: 2px solid var(--h1-color);
     border-radius: 10px;
     cursor: pointer;
+    background-color: var(--background-color);
     transition: background-color 0.3s;
   }
   
