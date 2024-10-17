@@ -12,8 +12,7 @@
         <section class="left-container">
           <h1>Não fique sozinho,</h1>
           <h2>Converse com alguém que entende você.</h2>
-          <div class="subscribe-section">
-            <div class="sarah-section">
+          <div class="sarah-section">
               <div class="lado-esquerdo">
                 <img class="avatar-sarah" src="../assets/sarah-avatar-2-removebg-preview 1.png" alt="Sarah" />
               </div>
@@ -22,10 +21,11 @@
                 <button class="sarah-button" type="submit">Conhecer Sarah</button>
               </div>
             </div>
-            <p>Receba atualizações exclusivas e seja um dos primeiros a experimentar novas funcionalidades.</p>
+          <div class="subscribe-section">
+            <p class="subscribe-text">Receba atualizações exclusivas e seja um dos primeiros a experimentar novas funcionalidades.</p>
             <form @submit.prevent="subscribe">
               <input type="email" placeholder="Digite seu email" v-model="email" />
-              <button type="submit">Inscrever-se</button>
+              <button class="subscribe-button" type="submit">Inscrever-se</button>
             </form>
           </div>
         </section>
@@ -92,6 +92,7 @@
     display: flex;
     flex: 1;
   }
+
   
   /* Container Esquerdo */
   .left-container {
@@ -103,14 +104,71 @@
     padding: 40px;
     background-color: var(--background-color);
   }
+
+  .sarah-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -18vh;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .lado-esquerdo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1vw;
+  }
+
+  .lado-direito { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 5vw; 
+  }
+
+  .logo-sarah {
+    scale: 0.7;
+  }
+
+  .sarah-button {
+    background-color: var(--background-color);
+    transition: background-color 0.3s;
+    border: 4.5px solid var(--red-color);
+    color: var(--h2-color);
+    font-weight: 500;
+    font-family: 'Jost', sans-serif;
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 40px;
+    margin-top: -20px;
+    cursor: pointer;
+    border-radius: 15px;
+    height: 55px;
+    width: 230px;
+  }
+
+  .sarah-button:hover {
+    background-color: var(--red-color);
+    color: var(--background-color);
+  }
+
+  .avatar-sarah {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+    margin-right: -110px;
+  }
   
   .left-container h1 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     color: var(--h1-color);
-    margin-bottom: -10px;
+    margin-bottom: 3px;
     text-align: start;
     width: 87%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
   }
   
   .left-container h2 {
@@ -119,14 +177,14 @@
     margin-bottom: 5px;
     text-align: start;
     width: 87%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
   }
   
   .left-container p {
     font-size: 1.0rem;
     margin-bottom: 10px;
     margin-left: 3vw;
-    width: 90%;
+    width: 88%;
     text-align: start;
     color: var(--h2-color);
   }
@@ -134,38 +192,49 @@
   .subscribe-section {
     width: 100%;
     text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: var(--h2-color);
   }
-  
-  
+    
   .subscribe-section form {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    
   }
   
   .subscribe-section input {
     padding: 10px;
     margin-right: 10px;
+    margin-left: -5vh;
     border: 2px solid var(--h1-color);
     width: 400px;
-    height: 20px;
+    height: 40px;
     border-radius: 10px;
     background-color: var(--background-color);
+    font-family: 'Jost', sans-serif;
   }
   
-  .subscribe-section button {
-    padding: 10px 20px;
+  .subscribe-button {
+    padding: 0px 20px;
     height: 40px;
-    border: 2px solid var(--h1-color);
+    border: 3px solid var(--green-color);
     border-radius: 10px;
     cursor: pointer;
     background-color: var(--background-color);
     transition: background-color 0.3s;
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: var(--h2-color);
   }
   
-  .subscribe-section button:hover {
-    background-color: var(--blue-color);
+  .subscribe-button:hover {
+    color: var(--background-color);
+    background-color: var(--green-color);
   }
   
   /* Container Direito */

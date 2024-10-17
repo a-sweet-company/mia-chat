@@ -47,6 +47,7 @@
     color: var(--h1-color);
     text-decoration: none;
     font-weight: bold;
+    font-size: 1.1rem;
     transition: color 0.3s;
   }
   

@@ -20,7 +20,8 @@
   .footer-bar a {
     color: var(--h1-color);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    font-weight: bold;
   }
   
   .footer-bar a:hover {
