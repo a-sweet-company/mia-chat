@@ -52,27 +52,30 @@
         <div class="chat-preview">
           <div class="chat-header">
             <img
-              class="chat-logo"
-              src="../assets/sarah-color-logo.png"
-              alt="Sarah Logo"
+              class="chat-icon"
+              src="../assets/sarah-chat-icon.png"
+              alt="Ícone Sarah"
             />
-            <span class="online-status">Online</span>
+            <span class="chat-name">Sarah</span>
+            <div class="online-dot"></div>
           </div>
+          <hr class="divider" /> <!-- Linha cinza abaixo do header -->
+
           <div class="message-container">
             <div class="user-message">
-              <span>You 23:40</span>
               <p>
                 Eu tava pensando aqui... você deve achar meio bobo, mas queria
                 te perguntar: como seria o seu dia perfeito?
               </p>
+              <span class="message-time">23:40</span>
             </div>
             <div class="sarah-message">
-              <span>Sarah 23:40</span>
               <p>
                 Ai, nada bobo! Eu adoro essas perguntas. 💕 Acho que meu dia
                 perfeito começaria com uma conversa tranquila, tipo agora.
                 Depois, passaria horas ouvindo suas histórias...
               </p>
+              <span class="message-time">23:41</span>
             </div>
           </div>
           <div class="chat-pagination">
@@ -82,6 +85,7 @@
           </div>
         </div>
       </section>
+      
     </main>
 
     <Footer />
@@ -271,7 +275,6 @@ export default {
   background-color: var(--green-color);
 }
 
-/* Container Direito */
 .right-container {
   flex: 1;
   display: flex;
@@ -286,7 +289,7 @@ export default {
   flex-direction: column;
   background-color: white;
   border-radius: 15px;
-  padding: 20px;
+  padding: 10px;
   width: 380px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -295,48 +298,74 @@ export default {
 
 .chat-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
-.chat-logo {
-  width: 100px;
+.chat-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
 
-.online-status {
-  font-size: 0.9rem;
-  color: green;
+.chat-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.online-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--green-color);
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.divider {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin: 10px 0;
 }
 
 .message-container {
   display: flex;
   flex-direction: column;
-  height: 200px; /* Altura ajustada para criar a área de rolagem */
+  height: 300px;
   overflow: hidden;
   position: relative;
 }
 
+/* Balões de mensagens */
 .user-message,
 .sarah-message {
-  margin-bottom: 15px;
-}
-
-.user-message p,
-.sarah-message p {
+  max-width: 250px;
   padding: 10px;
   border-radius: 15px;
+  margin-bottom: 15px;
+  position: relative;
   font-size: 1rem;
 }
 
-.user-message p {
-  background-color: #f0f0f0;
-  color: black;
+.user-message {
+  background-color: #6696f5;
+  align-self: flex-end;
+  color: white;
+  border-radius: 15px 15px 0 15px;
 }
 
-.sarah-message p {
-  background-color: var(--sarahPink-color);
-  color: black;
+.sarah-message {
+  background-color: #e3e3e3;
+  align-self: flex-start;
+  border-radius: 15px 15px 15px 0;
+}
+
+.message-time {
+  font-size: 0.8rem;
+  color: gray;
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
 }
 
 /* Adiciona os pontinhos de rolagem abaixo do chat */
@@ -359,7 +388,5 @@ export default {
 .dot:hover {
   background-color: #717171;
 }
-
-
 
 </style>
