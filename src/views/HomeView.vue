@@ -212,6 +212,7 @@ export default {
 
 .left-container h2 {
   font-size: 1.5rem;
+  font-weight: 600;
   color: var(--h2-color);
   margin-bottom: 5px;
   text-align: start;
@@ -232,7 +233,7 @@ export default {
   width: 100%;
   text-align: center;
   font-family: "Jost", sans-serif;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 0.8rem;
   color: var(--h2-color);
 }
@@ -254,6 +255,7 @@ export default {
   border-radius: 10px;
   background-color: var(--background-color);
   font-family: "Jost", sans-serif;
+  font-weight: 400;
 }
 
 .subscribe-button {
@@ -355,7 +357,7 @@ export default {
 }
 
 .sarah-message {
-  background-color: #e3e3e3;
+  background-color: #F3F3F3;
   align-self: flex-start;
   border-radius: 15px 15px 15px 0;
 }

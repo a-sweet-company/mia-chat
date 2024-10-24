@@ -40,19 +40,21 @@
     display: flex;
     justify-content: space-around;
     padding: 10px;
-    background-color: var(--header-color);
+    background-color: var(--footer-color);
   }
   
   .navbar a {
-    color: var(--h1-color);
+    color: var(--white-color);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 1.1rem;
     transition: color 0.3s;
+    transition: scale 0.3s;
   }
   
   .navbar a:hover {
-    color: var(--blue-color);
+    scale: 1.1;
+    transition: scale 0.3s;
   }
   
   /* Barra de cores */

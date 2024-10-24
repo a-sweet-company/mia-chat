@@ -18,14 +18,15 @@
   }
   
   .footer-bar a {
-    color: var(--h1-color);
+    color: var(--white-color);
     text-decoration: none;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 400;
   }
   
   .footer-bar a:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
   </style>
   
