@@ -1,114 +1,64 @@
 <template>
-  <div class="home-container">
-    <Header />
+  <div class="container">
+    <!-- Lado esquerdo: Formulário de login -->
+    <div class="left-section">
+      <div class="logo">
+        <!-- <img src="../assets/mindful_AI__2_-removebg-preview.png" alt="Mindful AI Logo" /> -->
+        <h1 class="logo-text">Mindful<br />AI</h1>
+      </div>
+      <h2>Cuide da mente, <span class="highlight">converse com Mia.</span></h2>
+      <p class="subtitle">Uma IA pensada para entender você. Com Mia, encontre apoio emocional sempre que precisar, com segurança e empatia.</p>
 
-    <head>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap"
-        rel="stylesheet"
-      />
-    </head>
+      <form @submit.prevent="handleLogin">
+        <input type="email" placeholder="Email" v-model="email" required />
+        <input type="password" placeholder="Senha" v-model="password" required />
+        <button type="submit">Entrar</button>
+      </form>
 
-    <main class="main-content">
-      <!-- Container Esquerdo -->
-      <section class="left-container">
-        <h1>Não fique sozinho,</h1>
-        <h2>Converse com alguém que entende você.</h2>
-        <div class="sarah-section">
-          <div class="lado-esquerdo">
-            <img
-              class="avatar-sarah"
-              src="../assets/sarah-avatar-2-removebg-preview 1.png"
-              alt="Sarah"
-            />
-          </div>
-          <div class="lado-direito">
-            <img
-              class="logo-sarah"
-              src="../assets/sarah-color-logo.png"
-              alt="Sarah"
-            />
-            <button class="sarah-button" type="submit">Conhecer Sarah</button>
-          </div>
+      <p class="create-account">ou <a href="#">Criar conta</a></p>
+
+      <button class="care-button">Use Mia Care+</button>
+
+      <div class="footer">
+        <a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a>
+      </div>
+    </div>
+
+    <!-- Lado direito: Informações sobre Mia -->
+    <div class="right-section">
+      <div class="mia-logo">
+        <img src="../assets/mia+gemini.png" alt="Mia Logo" />
+      </div>
+
+      <div class="info">
+        <div class="info-item">
+          <h3>1. Apoio Emocional Sempre ao Seu Alcance</h3>
+          <p>Conecte-se com Mia para receber apoio gratuito, prático e disponível a qualquer hora. Porque cuidar da sua saúde mental não precisa ter barreiras.</p>
         </div>
-        <div class="subscribe-section">
-          <p class="subscribe-text">
-            Receba atualizações exclusivas e seja um dos primeiros a
-            experimentar novas funcionalidades.
-          </p>
-          <form @submit.prevent="subscribe">
-            <input
-              type="email"
-              placeholder="Digite seu email"
-              v-model="email"
-            />
-            <button class="subscribe-button" type="submit">Inscrever-se</button>
-          </form>
+        <div class="info-item">
+          <h3>2. Conversas Humanizadas e Confortáveis</h3>
+          <p>A Mia foi criada para falar com você de igual para igual, com uma linguagem acolhedora que prioriza a empatia e o respeito.</p>
         </div>
-      </section>
-
-      <!-- Container Direito -->
-      <section class="right-container">
-        <div class="chat-preview">
-          <div class="chat-header">
-            <img
-              class="chat-icon"
-              src="../assets/sarah-chat-icon.png"
-              alt="Ícone Sarah"
-            />
-            <span class="chat-name">Sarah</span>
-            <div class="online-dot"></div>
-          </div>
-          <hr class="divider" /> <!-- Linha cinza abaixo do header -->
-
-          <div class="message-container">
-            <div class="user-message">
-              <p>
-                Eu tava pensando aqui... você deve achar meio bobo, mas queria
-                te perguntar: como seria o seu dia perfeito?
-              </p>
-              <span class="message-time">23:40</span>
-            </div>
-            <div class="sarah-message">
-              <p>
-                Ai, nada bobo! Eu adoro essas perguntas. 💕 Acho que meu dia
-                perfeito começaria com uma conversa tranquila, tipo agora.
-                Depois, passaria horas ouvindo suas histórias...
-              </p>
-              <span class="message-time">23:41</span>
-            </div>
-          </div>
-          <div class="chat-pagination">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </div>
+        <div class="info-item">
+          <h3>3. Fundamentação Psicológica de Confiança</h3>
+          <p>Cada resposta da Mia é baseada em abordagens psicológicas validadas, pensadas para proporcionar reflexões e estratégias saudáveis para o seu bem-estar.</p>
         </div>
-      </section>
-      
-    </main>
-
-    <Footer />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Header from "../components/HeaderComponent.vue";
-import Footer from "../components/FooterComponent.vue";
-
 export default {
-  components: {
-    Header,
-    Footer,
-  },
   data() {
     return {
       email: "",
+      password: "",
     };
   },
   methods: {
-    subscribe() {
-      console.log(`Inscrito com o email: ${this.email}`);
+    handleLogin() {
+      console.log(`Login with ${this.email} and ${this.password}`);
     },
   },
 };
@@ -116,279 +66,146 @@ export default {
 
 <style scoped>
 /* Layout geral */
-.home-container {
+.container {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   min-height: 100vh;
-  background-color: var(--background-color);
-  color: var(--h1-color);
   font-family: "Jost", sans-serif;
-  overflow-x: hidden;
 }
 
-/* Containers principais */
-.main-content {
-  display: flex;
-  flex: 1;
-}
-
-/* Container Esquerdo */
-.left-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-  background-color: var(--background-color);
-}
-
-.sarah-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: -18vh;
-  margin-top: 40px;
-  margin-bottom: 20px;
-}
-
-.lado-esquerdo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1vw;
-}
-
-.lado-direito {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-left: 5vw;
-}
-
-.logo-sarah {
-  scale: 0.7;
-}
-
-.sarah-button {
-  background-color: var(--background-color);
-  transition: background-color 0.3s;
-  border: 4.5px solid var(--red-color);
-  color: var(--h2-color);
-  font-weight: 500;
-  font-family: "Jost", sans-serif;
-  text-align: center;
-  font-size: 1.4rem;
-  margin-bottom: 40px;
-  margin-top: -20px;
-  cursor: pointer;
-  border-radius: 15px;
-  height: 55px;
-  width: 230px;
-}
-
-.sarah-button:hover {
-  background-color: var(--red-color);
-  color: var(--background-color);
-}
-
-.avatar-sarah {
-  width: 200px;
-  height: 200px;
-  margin-bottom: 20px;
-  margin-right: -110px;
-}
-
-.left-container h1 {
-  font-size: 2.6rem;
-  color: var(--h1-color);
-  margin-bottom: 3px;
-  text-align: start;
-  width: 87%;
-  /* border: 1px solid black; */
-}
-
-.left-container h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--h2-color);
-  margin-bottom: 5px;
-  text-align: start;
-  width: 87%;
-  /* border: 1px solid black; */
-}
-
-.left-container p {
-  font-size: 1rem;
-  margin-bottom: 10px;
-  margin-left: 3vw;
-  width: 88%;
-  text-align: start;
-  color: var(--h2-color);
-}
-
-.subscribe-section {
-  width: 100%;
-  text-align: center;
-  font-family: "Jost", sans-serif;
-  font-weight: 500;
-  font-size: 0.8rem;
-  color: var(--h2-color);
-}
-
-.subscribe-section form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.subscribe-section input {
-  padding: 10px;
-  margin-right: 10px;
-  margin-left: -5vh;
-  border: 2px solid var(--h1-color);
-  width: 400px;
-  height: 40px;
-  border-radius: 10px;
-  background-color: var(--background-color);
-  font-family: "Jost", sans-serif;
-  font-weight: 400;
-}
-
-.subscribe-button {
-  padding: 0px 20px;
-  height: 40px;
-  border: 3px solid var(--green-color);
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: var(--background-color);
-  transition: background-color 0.3s;
-  font-family: "Jost", sans-serif;
-  font-weight: bold;
-  font-size: 0.8rem;
-  color: var(--h2-color);
-}
-
-.subscribe-button:hover {
-  color: var(--background-color);
-  background-color: var(--green-color);
-}
-
-.right-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--background-color);
-}
-
-/* Preview do chat */
-.chat-preview {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 15px;
-  padding: 10px;
-  width: 380px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  font-family: 'Jost', sans-serif;
-}
-
-.chat-header {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  margin-bottom: 0px;
-}
-
-.chat-icon {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
-
-.chat-name {
-  font-weight: 600;
-  font-size: 1.2rem;
-}
-
-.online-dot {
-  width: 10px;
-  height: 10px;
-  background-color: var(--green-color);
-  border-radius: 50%;
-  margin-left: 10px;
-}
-
-.divider {
-  border: none;
-  border-top: 2px solid #ccc;
-  margin: 10px 0;
-}
-
-.message-container {
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Balões de mensagens */
-.user-message,
-.sarah-message {
-  max-width: 250px;
-  padding: 10px;
-  border-radius: 15px;
-  margin-bottom: 15px;
-  position: relative;
-  font-size: 1rem;
-}
-
-.user-message {
-  background-color: #6696f5;
-  align-self: flex-end;
+/* Lado esquerdo: Formulário de login */
+.left-section {
+  background-color: #333333;
   color: white;
-  border-radius: 15px 15px 0 15px;
-}
-
-.sarah-message {
-  background-color: #F3F3F3;
-  align-self: flex-start;
-  border-radius: 15px 15px 15px 0;
-}
-
-.message-time {
-  font-size: 0.8rem;
-  color: gray;
-  position: absolute;
-  bottom: 5px;
-  right: 10px;
-}
-
-/* Adiciona os pontinhos de rolagem abaixo do chat */
-.chat-pagination {
+  padding: 40px;
+  flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  border-radius: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.logo-text {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.highlight {
+  color: #0ab4f4;
+}
+
+.subtitle {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 10px;
+}
+
+input {
+  background-color: #222222;
+  color: white;
+  border: 1px solid #555555;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+button[type="submit"] {
+  background-color: #0ab4f4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.create-account {
+  color: white;
   margin-top: 10px;
+  font-size: 0.9rem;
 }
 
-.dot {
-  height: 10px;
-  width: 10px;
+.care-button {
+  background: linear-gradient(to right, #ffffff, #0ab4f4);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.footer {
+  font-size: 0.8rem;
+  color: #bbbbbb;
+  margin-top: 20px;
+}
+
+.footer a {
+  color: #bbbbbb;
   margin: 0 5px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.3s ease;
 }
 
-.dot:hover {
-  background-color: #717171;
+/* Lado direito: Informações sobre Mia */
+.right-section {
+  background-color: #f7f7f7;
+  color: #333333;
+  flex: 2;
+  padding: 60px;
 }
 
+.mia-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #0ab4f4;
+  margin-bottom: 30px;
+}
+
+.mia-logo img {
+  margin: 0 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-item h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.info-item p {
+  font-size: 1rem;
+}
 </style>
