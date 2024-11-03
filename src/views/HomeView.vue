@@ -83,7 +83,7 @@ export default {
 .left-section {
   background-color: #333333;
   color: white;
-  padding: 40px;
+  padding: 40px 80px;
   margin: 10px;
   flex: 1;
   display: flex;
@@ -183,35 +183,32 @@ button[type="submit"] {
 .right-section {
   color: #333333;
   flex: 2;
-  padding: 60px;
+  padding: 50px;
   background-color: #ECECEC;
-}
-
-.mia-logo {
-  display: flex;
-  align-items: center;
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #0ab4f4;
-  margin-bottom: 30px;
+  /* border: 1px solid black; */
 }
 
 .mia-logo img {
-  margin: 0 10px;
+  margin-left: 1vw;
+  scale: 0.8;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+  /* border: 1px solid black; */
 }
 
 .info-item h3 {
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .info-item p {
   font-size: 1rem;
+  line-height: 1.6;
+  margin-left: 1.5vw;
 }
 </style>
