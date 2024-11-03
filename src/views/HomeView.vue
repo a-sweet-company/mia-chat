@@ -3,8 +3,7 @@
     <!-- Lado esquerdo: Formulário de login -->
     <div class="left-section">
       <div class="logo">
-        <!-- <img src="../assets/mindful_AI__2_-removebg-preview.png" alt="Mindful AI Logo" /> -->
-        <h1 class="logo-text">Mindful<br />AI</h1>
+        <img src="../assets/mindful_AI__2_-removebg-preview.png.png" alt="Mindful AI Logo" />
       </div>
       <h2>Cuide da mente, <span class="highlight">converse com Mia.</span></h2>
       <p class="subtitle">Uma IA pensada para entender você. Com Mia, encontre apoio emocional sempre que precisar, com segurança e empatia.</p>
@@ -12,6 +11,7 @@
       <form @submit.prevent="handleLogin">
         <input type="email" placeholder="Email" v-model="email" required />
         <input type="password" placeholder="Senha" v-model="password" required />
+        
         <button type="submit">Entrar</button>
       </form>
 
@@ -66,10 +66,17 @@ export default {
 
 <style scoped>
 /* Layout geral */
+
+:root {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   display: flex;
   min-height: 100vh;
   font-family: "Jost", sans-serif;
+  background-color: #ECECEC;
 }
 
 /* Lado esquerdo: Formulário de login */
@@ -77,26 +84,22 @@ export default {
   background-color: #333333;
   color: white;
   padding: 40px;
+  margin: 10px;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 400px;
+  max-width: 80vw;
   border-radius: 15px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.logo-text {
-  font-family: "Playfair Display", serif;
-  font-size: 2.5rem;
-  margin: 0;
+  scale: 0.5;
+  margin-bottom: -140px;
+  margin-top: -190px;
 }
 
 h2 {
@@ -111,7 +114,7 @@ h2 {
 }
 
 .subtitle {
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-align: center;
   margin-bottom: 30px;
 }
@@ -148,6 +151,8 @@ button[type="submit"] {
   color: white;
   margin-top: 10px;
   font-size: 0.9rem;
+  text-align: center;
+  text-decoration: none;
 }
 
 .care-button {
@@ -160,6 +165,7 @@ button[type="submit"] {
   margin-top: 15px;
   font-size: 1.2rem;
   font-weight: bold;
+  
 }
 
 .footer {
@@ -175,10 +181,10 @@ button[type="submit"] {
 
 /* Lado direito: Informações sobre Mia */
 .right-section {
-  background-color: #f7f7f7;
   color: #333333;
   flex: 2;
   padding: 60px;
+  background-color: #ECECEC;
 }
 
 .mia-logo {
