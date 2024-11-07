@@ -5,23 +5,32 @@
       <div class="logo">
         <img src="../assets/mindful_AI__2_-removebg-preview.png.png" alt="Mindful AI Logo" />
       </div>
+      <div class="slogam">
       <h2>Cuide da mente, <span class="highlight">converse com Mia.</span></h2>
-      <p class="subtitle">Uma IA pensada para entender você. Com Mia, encontre apoio emocional sempre que precisar, com segurança e empatia.</p>
-
+    </div>
+    <div class="subtitulo">
+      <p>Uma IA pensada para entender você. Com Mia, encontre apoio emocional sempre que precisar, com segurança e empatia.</p>
+    </div>
+    <div class="caixa_login"> 
+    <div class="formulario">
       <form @submit.prevent="handleLogin">
+      <div class="div_email">
         <input type="email" placeholder="Email" v-model="email" required />
+      </div>
         <input type="password" placeholder="Senha" v-model="password" required />
         
         <button type="submit">Entrar</button>
       </form>
 
       <p class="create-account">ou <a href="#">Criar conta</a></p>
-
+    </div>
+  </div>
       <button class="care-button">Use Mia Care+</button>
 
       <div class="footer">
         <a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a>
       </div>
+    
     </div>
 
     <!-- Lado direito: Informações sobre Mia -->
@@ -72,40 +81,119 @@ export default {
   padding: 0;
 }
 
+
 .container {
   display: flex;
   min-height: 100vh;
   font-family: "Jost", sans-serif;
   background-color: #ECECEC;
+  width: 100vw;
+  height: 100vh;
 }
 
 /* Lado esquerdo: Formulário de login */
 .left-section {
   background-color: #333333;
   color: white;
-  padding: 40px 80px;
+  /* color: white;
   margin: 10px;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 80vw;
-  border-radius: 15px;
+  /* max-width: 80vw; */
+  border-radius: 1.3vw;
+  width: 50%;
+  margin-left: 1.7vw;
+  margin-top: 1.2vw;
+  margin-bottom: 1.2vw;
+  height: 95%
+  
+
 }
 
 .logo {
   display: flex;
   align-items: center;
-  scale: 0.5;
-  margin-bottom: -140px;
-  margin-top: -190px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 15%;
+  /* background-color: #0ab4f4; */
+}
+.logo img {
+height: 218%;
+margin-top: 5%;
 }
 
-h2 {
+.slogam{
+  width: 100%;
+ /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5%;
+  margin-top: 3%;  
+}
+.subtitulo{
+  margin-top: 3.5%;
+  width: 80%;
+  /* background-color: blue;  */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5%;
+  text-align:center;
+  margin-left: 10%;
+  font-size: 1.3vw;
+  line-height: 150%;
+}
+/* h2 {
   font-size: 1.6rem;
   font-weight: 600;
   margin-bottom: 15px;
+  text-align: center;
+} */
+.caixa_login{
+  /* background-color: blue; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55%;
+}
+
+.formulario{
+  /* background-color: purple; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 86%;
+  border: solid 0.29vh white;
+  height: 79%;
+  border-radius: 1.3vw;
+  margin-top: 1%;
+}
+.div_email{
+/* background-color: black; */
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center; 
+margin-top: 3%;
+height:19%;
+}
+.div_email input{
+  width: 87%;
+  height: 90%;
+  border-radius: 0.6vw;
+  border: solid 0.17vh white;
+  opacity:90%;
+}
+.slogam h2 {
+  font-size: 2.3vw;
   text-align: center;
 }
 
@@ -123,8 +211,7 @@ form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 300px;
-  margin-bottom: 10px;
+  height: 90%;
 }
 
 input {
