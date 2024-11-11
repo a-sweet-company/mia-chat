@@ -13,8 +13,14 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(User user)
+    public async Task<IActionResult> Register([FromBody] UserCreateDto userDto)
     {
+        var user = new User
+        {
+            Email = userDto.Email,
+            Password = userDto.Password
+        };
+
         var success = await _authService.Register(user);
         if (!success) return BadRequest("Erro ao registrar usuário.");
         return Ok("Usuário registrado com sucesso.");
