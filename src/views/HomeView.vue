@@ -3,7 +3,7 @@
     <!-- Lado esquerdo: Formulário de login -->
     <div class="left-section">
       <div class="logo">
-        <img src="../assets/mindful_AI__2_-removebg-preview.png.png" alt="Mindful AI Logo" />
+        <img src="../assets/miaLogoBlack.svg" alt="Mindful AI Logo" />
       </div>
       <div class="slogam">
       <h2>Cuide da mente, <span class="highlight">converse com Mia.</span></h2>
@@ -17,7 +17,9 @@
       <div class="div_email">
         <input type="email" placeholder="Email" v-model="email" required />
       </div>
+      <div class="div_senha">
         <input type="password" placeholder="Senha" v-model="password" required />
+      </div>
         
         <button type="submit">Entrar</button>
       </form>
@@ -93,8 +95,8 @@ export default {
 
 /* Lado esquerdo: Formulário de login */
 .left-section {
-  background-color: #333333;
-  color: white;
+  /* background-color:white; */
+  /* color: white; */
   /* color: white;
   margin: 10px;
   flex: 1;
@@ -105,10 +107,12 @@ export default {
   /* max-width: 80vw; */
   border-radius: 1.3vw;
   width: 50%;
-  margin-left: 1.7vw;
-  margin-top: 1.2vw;
-  margin-bottom: 1.2vw;
-  height: 95%
+  margin-left: 1.2vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  height: 96.7%;
+  border: solid 0.5vh black;
+  color: black;
   
 
 }
@@ -120,11 +124,12 @@ export default {
   justify-content: center;
   align-items: center;
   height: 15%;
+  color: black;
   /* background-color: #0ab4f4; */
 }
 .logo img {
-height: 218%;
-margin-top: 5%;
+height: 200%;
+margin-top: 8%;
 }
 
 .slogam{
@@ -170,13 +175,13 @@ margin-top: 5%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 86%;
-  border: solid 0.29vh white;
-  height: 79%;
+  width: 88%;
+  border: 0.39vh solid #353535;
+  height: 93%;
   border-radius: 1.3vw;
   margin-top: 1%;
 }
-.div_email{
+.div_email {
 /* background-color: black; */
 width: 100%;
 display: flex;
@@ -185,12 +190,32 @@ align-items: center;
 margin-top: 3%;
 height:19%;
 }
-.div_email input{
+
+.div_senha {
+/* background-color: black; */
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center; 
+margin-top: 3%;
+height:19%;
+}
+.div_email  input{
   width: 87%;
   height: 90%;
   border-radius: 0.6vw;
-  border: solid 0.17vh white;
+  background-color: #ECECEC ;
   opacity:90%;
+  border: 0.29vh solid #353535;
+}
+
+.div_senha  input{
+  width: 87%;
+  height: 90%;
+  border-radius: 0.6vw;
+  background-color: #ECECEC ;
+  opacity:90%;
+  border: 0.29vh solid #353535;
 }
 .slogam h2 {
   font-size: 2.3vw;
@@ -215,9 +240,9 @@ form {
 }
 
 input {
-  background-color: #222222;
+  /* background-color: #222222; */
   color: white;
-  border: 1px solid #555555;
+  border: 0.29vh solid #353535;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
@@ -243,7 +268,7 @@ button[type="submit"] {
 }
 
 .care-button {
-  background: linear-gradient(to right, #ffffff, #0ab4f4);
+  background: linear-gradient(to rigght, #ffffff, #0ab4f4);
   color: black;
   border: none;
   padding: 10px 20px;
