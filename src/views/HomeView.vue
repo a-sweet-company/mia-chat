@@ -1,38 +1,39 @@
 <template>
   <div class="container">
-    <!-- Lado esquerdo: Formulário de login -->
+    <!-- Lado esquerdo: Formulário de login/cadastro -->
     <div class="left-section">
       <div class="logo">
         <img src="../assets/miaLogoBlack.svg" alt="Mindful AI Logo" />
       </div>
-      <div class="slogam">
-      <h2>Cuide da mente, <span class="highlight">converse com Mia.</span></h2>
-    </div>
-    <div class="subtitulo">
-      <p>Uma IA pensada para entender você. Com Mia, encontre apoio emocional sempre que precisar, com segurança e empatia.</p>
-    </div>
-    <div class="caixa_login"> 
-    <div class="formulario">
-      <form @submit.prevent="handleLogin">
-      <div class="div_email">
-        <input type="email" placeholder="Email" v-model="email" required />
+      <div class="slogan">
+        <h2>Cuide da mente, <span class="highlight">converse com Mia.</span></h2>
       </div>
-      <div class="div_senha">
-        <input type="password" placeholder="Senha" v-model="password" required />
+      <div class="subtitulo">
+        <p>Uma IA pensada para entender você. Com Mia, encontre apoio emocional sempre que precisar, com segurança e empatia.</p>
       </div>
-        
-        <button type="submit">Entrar</button>
-      </form>
-
-      <p class="create-account">ou <a href="#">Criar conta</a></p>
-    </div>
-  </div>
-      <button class="care-button">Use Mia Care+</button>
-
+      <div class="caixa-login">
+        <div class="formulario">
+          <form @submit.prevent="handleFormSubmit">
+            <div class="input-container">
+              <input type="email" placeholder="Email" v-model="email" required />
+            </div>
+            <div class="input-container">
+              <input type="password" placeholder="Senha" v-model="password" required />
+            </div>
+            <div v-if="isSignUp" class="input-container">
+              <input type="password" placeholder="Confirme sua senha" v-model="confirmPassword" required />
+            </div>
+            <button type="submit">{{ isSignUp ? "Cadastrar" : "Entrar" }}</button>
+          </form>
+          <p class="toggle-form">
+            {{ isSignUp ? "Já tem uma conta?" : "Não tem uma conta?" }} 
+            <a href="#" @click.prevent="toggleSignUp">{{ isSignUp ? "Entrar" : "Criar conta" }}</a>
+          </p>
+        </div>
+      </div>
       <div class="footer">
         <a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a>
       </div>
-    
     </div>
 
     <!-- Lado direito: Informações sobre Mia -->
@@ -40,7 +41,6 @@
       <div class="mia-logo">
         <img src="../assets/mia+gemini.png" alt="Mia Logo" />
       </div>
-
       <div class="info">
         <div class="info-item">
           <h3>1. Apoio Emocional Sempre ao Seu Alcance</h3>
@@ -60,16 +60,47 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
+      isSignUp: false,
       email: "",
       password: "",
+      confirmPassword: "",
     };
   },
   methods: {
-    handleLogin() {
-      console.log(`Login with ${this.email} and ${this.password}`);
+    toggleSignUp() {
+      this.isSignUp = !this.isSignUp;
+      this.password = "";
+      this.confirmPassword = "";
+    },
+    async handleFormSubmit() {
+      try {
+        if (this.isSignUp) {
+          // Lógica de criação de conta
+          if (this.password !== this.confirmPassword) {
+            alert("As senhas não coincidem!");
+            return;
+          }
+          const response = await axios.post("https://seu-backend-url/api/usuario", {
+            email: this.email,
+            password: this.password,
+          });
+          alert("Conta criada com sucesso!");
+        } else {
+          // Lógica de login
+          const response = await axios.post("https://seu-backend-url/api/login", {
+            email: this.email,
+            password: this.password,
+          });
+          alert("Login realizado com sucesso!");
+        }
+      } catch (error) {
+        alert("Erro: " + (error.response?.data?.message || "Não foi possível completar a ação."));
+      }
     },
   },
 };
@@ -77,250 +108,162 @@ export default {
 
 <style scoped>
 /* Layout geral */
-
 :root {
   margin: 0;
   padding: 0;
 }
 
-
 .container {
   display: flex;
+  flex-direction: row;
   min-height: 100vh;
   font-family: "Jost", sans-serif;
   background-color: #ECECEC;
   width: 100vw;
-  height: 100vh;
 }
 
 /* Lado esquerdo: Formulário de login */
 .left-section {
-  /* background-color:white; */
-  /* color: white; */
-  /* color: white;
-  margin: 10px;
-  flex: 1;
+  color: #000000;
+  width: 50%; /* Garante que ocupe sempre 50% da tela */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* max-width: 80vw; */
-  border-radius: 1.3vw;
-  width: 50%;
-  margin-left: 1.2vw;
-  margin-top: 1vw;
-  margin-bottom: 1vw;
-  height: 96.7%;
-  border: solid 0.5vh black;
-  color: black;
-  
-
+  border-radius: 20px;
+  height: 100%;
+  border: solid 3px black;
+  margin: 2vw 0; /* Ajusta margens verticais */
 }
 
 .logo {
   display: flex;
   align-items: center;
-  width: 100%;
   justify-content: center;
-  align-items: center;
-  height: 15%;
-  color: black;
-  /* background-color: #0ab4f4; */
+  width: 100%;
+  margin-bottom: -3%;
 }
+
 .logo img {
-height: 200%;
-margin-top: 8%;
+  max-height: 100px;
 }
 
-.slogam{
-  width: 100%;
- /* background-color: red; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 5%;
-  margin-top: 3%;  
-}
-.subtitulo{
-  margin-top: 3.5%;
-  width: 80%;
-  /* background-color: blue;  */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 5%;
-  text-align:center;
-  margin-left: 10%;
-  font-size: 1.3vw;
-  line-height: 150%;
-}
-/* h2 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 15px;
+.slogan {
   text-align: center;
-} */
-.caixa_login{
-  /* background-color: blue; */
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 55%;
+  margin-bottom: 2%;
 }
 
-.formulario{
-  /* background-color: purple; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 88%;
-  border: 0.39vh solid #353535;
-  height: 93%;
-  border-radius: 1.3vw;
-  margin-top: 1%;
-}
-.div_email {
-/* background-color: black; */
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center; 
-margin-top: 3%;
-height:19%;
-}
-
-.div_senha {
-/* background-color: black; */
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center; 
-margin-top: 3%;
-height:19%;
-}
-.div_email  input{
-  width: 87%;
-  height: 90%;
-  border-radius: 0.6vw;
-  background-color: #ECECEC ;
-  opacity:90%;
-  border: 0.29vh solid #353535;
-}
-
-.div_senha  input{
-  width: 87%;
-  height: 90%;
-  border-radius: 0.6vw;
-  background-color: #ECECEC ;
-  opacity:90%;
-  border: 0.29vh solid #353535;
-}
-.slogam h2 {
+.slogan h2 {
   font-size: 2.3vw;
+  color: #1199CE; /* Cor azul padrão */
+}
+
+.subtitulo {
+  font-size: 1.2vw;
   text-align: center;
+  line-height: 1.5;
+  margin-bottom: 2%;
 }
 
-.highlight {
-  color: #0ab4f4;
-}
-
-.subtitle {
-  font-size: 0.9rem;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-form {
+.caixa-login {
+  width: 90%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formulario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 90%;
+  border: 0.2vw solid #353535;
+  border-radius: 0.8vw;
+  padding: 2vw;
+  box-sizing: border-box;
 }
 
-input {
-  /* background-color: #222222; */
-  color: white;
-  border: 0.29vh solid #353535;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-size: 1rem;
+.input-container {
+  width: 100%;
+  margin-bottom: 1.5vw;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 0.8vw;
+  border-radius: 0.6vw;
+  background-color: #ECECEC;
+  border: 0.2vw solid #353535;
 }
 
 button[type="submit"] {
   background-color: #0ab4f4;
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0.6vw;
+  padding: 0.8vw;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1vw;
+  width: 100%;
 }
 
-.create-account {
-  color: white;
-  margin-top: 10px;
-  font-size: 0.9rem;
-  text-align: center;
+.toggle-form {
+  margin-top: 1vw;
+  font-size: 1vw;
+}
+
+.toggle-form a {
+  color: #0ab4f4;
   text-decoration: none;
 }
 
-.care-button {
-  background: linear-gradient(to rigght, #ffffff, #0ab4f4);
-  color: black;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 15px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  
-}
-
 .footer {
-  font-size: 0.8rem;
+  font-size: 0.9vw;
   color: #bbbbbb;
-  margin-top: 20px;
+  text-align: center;
+  margin-top: 2%;
 }
 
 .footer a {
   color: #bbbbbb;
   margin: 0 5px;
+  text-decoration: none;
 }
 
 /* Lado direito: Informações sobre Mia */
 .right-section {
   color: #333333;
-  flex: 2;
-  padding: 50px;
+  width: 50%; /* Garante que ocupe sempre 50% da tela */
+  padding: 4vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #ECECEC;
-  /* border: 1px solid black; */
 }
 
 .mia-logo img {
-  margin-left: 1vw;
-  scale: 0.8;
+  max-width: 30vw;
+  margin-bottom: 3%;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  /* border: 1px solid black; */
+  gap: 2vw;
 }
 
 .info-item h3 {
-  font-size: 1.2rem;
+  font-size: 1.5vw;
   font-weight: bold;
-  margin-bottom: 4px;
+  margin-bottom: 0.5vw;
 }
 
 .info-item p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-left: 1.5vw;
+  font-size: 1.2vw;
+  line-height: 1.5;
 }
 </style>
+
+
+
