@@ -111,6 +111,15 @@ export default {
 :root {
   margin: 0;
   padding: 0;
+  height: 100%;
+  overflow: hidden; 
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; 
 }
 
 .container {
@@ -120,20 +129,23 @@ export default {
   font-family: "Jost", sans-serif;
   background-color: #ECECEC;
   width: 100vw;
+  max-height: 90vh;
 }
 
 /* Lado esquerdo: Formulário de login */
 .left-section {
   color: #000000;
-  width: 50%; /* Garante que ocupe sempre 50% da tela */
+  width: 50%;
+  padding-bottom: 8vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  height: 100%;
+  height: 120vh;
+  max-height: 90vh;
   border: solid 3px black;
-  margin: 2vw 0; /* Ajusta margens verticais */
+  margin: 2vw 1.2vw;
 }
 
 .logo {
@@ -145,7 +157,7 @@ export default {
 }
 
 .logo img {
-  max-height: 100px;
+  max-height: 10vw;
 }
 
 .slogan {
@@ -159,9 +171,10 @@ export default {
 }
 
 .subtitulo {
-  font-size: 1.2vw;
+  font-size: 1vw;
   text-align: center;
   line-height: 1.5;
+  width: 38vw;
   margin-bottom: 2%;
 }
 
@@ -192,13 +205,15 @@ export default {
 .input-container input {
   width: 100%;
   padding: 0.8vw;
+  width: 40vw; /* Limita a largura dos inputs */
   border-radius: 0.6vw;
-  background-color: #ECECEC;
+  background-color: #dfdfdf;
   border: 0.2vw solid #353535;
+  font-size: 1.1vw;
 }
 
 button[type="submit"] {
-  background-color: #0ab4f4;
+  background-color: #1199CE;
   color: white;
   border: none;
   border-radius: 0.6vw;
@@ -206,6 +221,12 @@ button[type="submit"] {
   cursor: pointer;
   font-size: 1.1vw;
   width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover{
+  background-color: #128cbd;
+  transition: background-color 0.3s ease;
 }
 
 .toggle-form {
@@ -214,7 +235,7 @@ button[type="submit"] {
 }
 
 .toggle-form a {
-  color: #0ab4f4;
+  color: #1199CE;
   text-decoration: none;
 }
 
@@ -231,10 +252,10 @@ button[type="submit"] {
   text-decoration: none;
 }
 
-/* Lado direito: Informações sobre Mia */
+/* Lado direito: Informações sobre Mia ----------------------------------------------------------------- */
 .right-section {
   color: #333333;
-  width: 50%; /* Garante que ocupe sempre 50% da tela */
+  width: 50%; 
   padding: 4vw;
   display: flex;
   flex-direction: column;
@@ -243,14 +264,9 @@ button[type="submit"] {
 }
 
 .mia-logo img {
-  max-width: 30vw;
+  max-width: 27vw;
   margin-bottom: 3%;
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  gap: 2vw;
+  margin-left: 17%;
 }
 
 .info-item h3 {
@@ -259,9 +275,17 @@ button[type="submit"] {
   margin-bottom: 0.5vw;
 }
 
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+  margin-bottom: 3vw;
+}
+
 .info-item p {
   font-size: 1.2vw;
   line-height: 1.5;
+  margin-left: 20px;
 }
 </style>
 
