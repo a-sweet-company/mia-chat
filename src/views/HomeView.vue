@@ -6,33 +6,61 @@
         <img src="../assets/miaLogoBlack.svg" alt="Mindful AI Logo" />
       </div>
       <div class="slogan">
-        <h2>Cuide da mente, <span class="highlight">converse com Mia.</span></h2>
+        <h2>
+          Cuide da mente, <span class="highlight">converse com Mia.</span>
+        </h2>
       </div>
       <div class="subtitulo">
-        <p>Uma IA pensada para entender você. Com Mia, encontre apoio emocional sempre que precisar, com segurança e empatia.</p>
+        <p>
+          Uma IA pensada para entender você. Com Mia, encontre apoio emocional
+          sempre que precisar, com segurança e empatia.
+        </p>
       </div>
       <div class="caixa-login">
         <div class="formulario">
           <form @submit.prevent="handleFormSubmit">
             <div class="input-container">
-              <input type="email" placeholder="Email" v-model="email" required />
+              <input
+                :class="{ error: inputErrors.email }"
+                type="email"
+                placeholder="Email"
+                v-model="email"
+                required
+              />
             </div>
             <div class="input-container">
-              <input type="password" placeholder="Senha" v-model="password" required />
+              <input
+                :class="{ error: inputErrors.password }"
+                type="password"
+                placeholder="Senha"
+                v-model="password"
+                required
+              />
             </div>
             <div v-if="isSignUp" class="input-container">
-              <input type="password" placeholder="Confirme sua senha" v-model="confirmPassword" required />
+              <input
+                :class="{ error: inputErrors.confirmPassword }"
+                type="password"
+                placeholder="Confirme sua senha"
+                v-model="confirmPassword"
+                required
+              />
             </div>
-            <button type="submit">{{ isSignUp ? "Cadastrar" : "Entrar" }}</button>
+            <button type="submit">
+              {{ isSignUp ? "Cadastrar" : "Entrar" }}
+            </button>
           </form>
           <p class="toggle-form">
-            {{ isSignUp ? "Já tem uma conta?" : "Não tem uma conta?" }} 
-            <a href="#" @click.prevent="toggleSignUp">{{ isSignUp ? "Entrar" : "Criar conta" }}</a>
+            {{ isSignUp ? "Já tem uma conta?" : "Não tem uma conta?" }}
+            <a href="#" @click.prevent="toggleSignUp">{{
+              isSignUp ? "Entrar" : "Criar conta"
+            }}</a>
           </p>
         </div>
       </div>
-      <div class="footer">
+      <div class="footer"> 
         <a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a>
+        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       </div>
     </div>
 
@@ -44,15 +72,26 @@
       <div class="info">
         <div class="info-item">
           <h3>1. Apoio Emocional Sempre ao Seu Alcance</h3>
-          <p>Conecte-se com Mia para receber apoio gratuito, prático e disponível a qualquer hora. Porque cuidar da sua saúde mental não precisa ter barreiras.</p>
+          <p>
+            Conecte-se com Mia para receber apoio gratuito, prático e disponível
+            a qualquer hora. Porque cuidar da sua saúde mental não precisa ter
+            barreiras.
+          </p>
         </div>
         <div class="info-item">
           <h3>2. Conversas Humanizadas e Confortáveis</h3>
-          <p>A Mia foi criada para falar com você de igual para igual, com uma linguagem acolhedora que prioriza a empatia e o respeito.</p>
+          <p>
+            A Mia foi criada para falar com você de igual para igual, com uma
+            linguagem acolhedora que prioriza a empatia e o respeito.
+          </p>
         </div>
         <div class="info-item">
           <h3>3. Fundamentação Psicológica de Confiança</h3>
-          <p>Cada resposta da Mia é baseada em abordagens psicológicas validadas, pensadas para proporcionar reflexões e estratégias saudáveis para o seu bem-estar.</p>
+          <p>
+            Cada resposta da Mia é baseada em abordagens psicológicas validadas,
+            pensadas para proporcionar reflexões e estratégias saudáveis para o
+            seu bem-estar.
+          </p>
         </div>
       </div>
     </div>
@@ -60,7 +99,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api/api"; // Importa a configuração de API
 
 export default {
   data() {
@@ -69,6 +108,12 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
+      errorMessage: "", // Mensagem de erro
+      inputErrors: {
+        email: false,
+        password: false,
+        confirmPassword: false,
+      },
     };
   },
   methods: {
@@ -76,35 +121,65 @@ export default {
       this.isSignUp = !this.isSignUp;
       this.password = "";
       this.confirmPassword = "";
+      this.errorMessage = "";
+      this.clearInputErrors();
+    },
+    clearInputErrors() {
+      this.inputErrors = {
+        email: false,
+        password: false,
+        confirmPassword: false,
+      };
     },
     async handleFormSubmit() {
+      this.clearInputErrors();
+      this.errorMessage = "";
+
+      // Validação Básica
+      if (!this.email) {
+        this.inputErrors.email = true;
+        this.errorMessage = "O email é obrigatório.";
+        return;
+      }
+
+      if (!this.password) {
+        this.inputErrors.password = true;
+        this.errorMessage = "A senha é obrigatória.";
+        return;
+      }
+
+      if (this.isSignUp && this.password !== this.confirmPassword) {
+        this.inputErrors.password = true;
+        this.inputErrors.confirmPassword = true;
+        this.errorMessage = "As senhas não coincidem.";
+        return;
+      }
+
       try {
         if (this.isSignUp) {
-          // Lógica de criação de conta
-          if (this.password !== this.confirmPassword) {
-            alert("As senhas não coincidem!");
-            return;
-          }
-          const response = await axios.post("https://seu-backend-url/api/usuario", {
+          // Endpoint de cadastro
+          await api.post("/auth/register", {
             email: this.email,
             password: this.password,
           });
           alert("Conta criada com sucesso!");
         } else {
-          // Lógica de login
-          const response = await axios.post("https://seu-backend-url/api/login", {
+          // Endpoint de login
+          const response = await api.post("/auth/login", {
             email: this.email,
             password: this.password,
           });
           alert("Login realizado com sucesso!");
         }
       } catch (error) {
-        alert("Erro: " + (error.response?.data?.message || "Não foi possível completar a ação."));
+        this.errorMessage =
+          error.response?.data?.message || "Erro ao conectar com o servidor.";
       }
     },
   },
 };
 </script>
+
 
 <style scoped>
 /* Layout geral */
@@ -112,22 +187,35 @@ export default {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; 
+  overflow: hidden;
 }
+
+.input-container input.error {
+  border: 0.2vw solid #ff0000; /* Borda vermelha para campos com erro */
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 1vw;
+  margin-top: 1vw;
+  text-align: center;
+}
+
 
 .container {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
   font-family: "Jost", sans-serif;
-  background-color: #ECECEC;
+  background-color: #ececec;
   width: 100vw;
   max-height: 90vh;
 }
@@ -167,7 +255,7 @@ html, body {
 
 .slogan h2 {
   font-size: 2.3vw;
-  color: #1199CE; /* Cor azul padrão */
+  color: #1199ce; /* Cor azul padrão */
 }
 
 .subtitulo {
@@ -213,7 +301,7 @@ html, body {
 }
 
 button[type="submit"] {
-  background-color: #1199CE;
+  background-color: #1199ce;
   color: white;
   border: none;
   border-radius: 0.6vw;
@@ -224,7 +312,7 @@ button[type="submit"] {
   transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover{
+button[type="submit"]:hover {
   background-color: #128cbd;
   transition: background-color 0.3s ease;
 }
@@ -235,7 +323,7 @@ button[type="submit"]:hover{
 }
 
 .toggle-form a {
-  color: #1199CE;
+  color: #1199ce;
   text-decoration: none;
 }
 
@@ -255,12 +343,12 @@ button[type="submit"]:hover{
 /* Lado direito: Informações sobre Mia ----------------------------------------------------------------- */
 .right-section {
   color: #333333;
-  width: 50%; 
+  width: 50%;
   padding: 4vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #ECECEC;
+  background-color: #ececec;
 }
 
 .mia-logo img {
@@ -288,6 +376,3 @@ button[type="submit"]:hover{
   margin-left: 20px;
 }
 </style>
-
-
-

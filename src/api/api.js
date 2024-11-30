@@ -1,8 +1,9 @@
 // api.js
 import axios from 'axios';
+
 export default axios.create({
-  baseURL: 'https://localhost:7134/api', // ou 'http://localhost:5114/api' se precisar usar HTTP
+  baseURL: 'http://localhost:7013/api', // Atualizado para apontar para o backend correto
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
 });
