@@ -39,6 +39,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Usando a política de CORS
+app.UseCors("AllowAll");
+Console.WriteLine("CORS configurado: AllowAll");
 app.UseCors("AllowFrontend");
 
 app.UseSwagger();
