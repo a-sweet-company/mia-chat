@@ -58,7 +58,7 @@
           </p>
         </div>
       </div>
-      <div class="footer"> 
+      <div class="footer">
         <a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a>
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       </div>
@@ -158,11 +158,12 @@ export default {
       try {
         if (this.isSignUp) {
           // Endpoint de cadastro
-          await api.post("/auth/register", {
+          const response = await api.post("/auth/register", {
             email: this.email,
             password: this.password,
           });
-          alert("Conta criada com sucesso!");
+          alert("Conta criada com sucesso!"); // Confirmação simples
+          console.log("Cadastro:", response.data); // Log para depuração
         } else {
           // Endpoint de login
           const response = await api.post("/auth/login", {
@@ -170,16 +171,26 @@ export default {
             password: this.password,
           });
           alert("Login realizado com sucesso!");
+          console.log("Login:", response.data); // Log para depuração
         }
       } catch (error) {
-        this.errorMessage =
-          error.response?.data?.message || "Erro ao conectar com o servidor.";
+        // Melhor tratamento de erros
+        if (error.response) {
+          this.errorMessage =
+            error.response.data || "Erro desconhecido no servidor.";
+          console.error("Erro no servidor:", error.response);
+        } else if (error.request) {
+          this.errorMessage = "Erro na comunicação com o servidor.";
+          console.error("Erro de requisição:", error.request);
+        } else {
+          this.errorMessage = "Erro inesperado: " + error.message;
+          console.error("Erro:", error.message);
+        }
       }
     },
   },
 };
 </script>
-
 
 <style scoped>
 /* Layout geral */
@@ -208,7 +219,6 @@ body {
   margin-top: 1vw;
   text-align: center;
 }
-
 
 .container {
   display: flex;
