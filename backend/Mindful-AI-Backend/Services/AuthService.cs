@@ -18,10 +18,8 @@ public class AuthService
             if (existingUser != null)
                 return false;
 
-            // Define a senha criptografada usando o método SetPassword do modelo User
-            user.SetPassword(user.Password); // Usando o campo Password, não PasswordHash
-
-            // Adiciona o usuário no banco de dados
+            user.SetPassword(user.Password); 
+         
             await _userRepository.AddUserAsync(user);
             await _userRepository.SaveChangesAsync();
             return true;
@@ -29,7 +27,7 @@ public class AuthService
         catch (Exception ex)
         {
             Console.WriteLine($"Erro ao registrar usuário: {ex.Message}");
-            return false; // Retorna false em caso de erro
+            return false; 
         }
     }
 
@@ -39,7 +37,7 @@ public class AuthService
         var user = await _userRepository.GetUserByEmailAsync(email);
 
         // Verifica se o usuário existe e se a senha é válida
-        if (user == null || !user.VerifyPassword(password))  // Usando o método VerifyPassword, que já usa o campo Password
+        if (user == null || !user.VerifyPassword(password))  
             return null;
 
         return user;

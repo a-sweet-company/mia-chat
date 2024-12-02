@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import api from "@/api/api"; // Importa a configuração de API
+import api from "@/api/api"; 
 
 export default {
   data() {
@@ -162,8 +162,8 @@ export default {
             email: this.email,
             password: this.password,
           });
-          alert("Conta criada com sucesso!"); // Confirmação simples
-          console.log("Cadastro:", response.data); // Log para depuração
+          alert("Conta criada com sucesso!"); 
+          console.log("Cadastro:", response.data); 
         } else {
           // Endpoint de login
           const response = await api.post("/auth/login", {
@@ -171,7 +171,7 @@ export default {
             password: this.password,
           });
           alert("Login realizado com sucesso!");
-          console.log("Login:", response.data); // Log para depuração
+          console.log("Login:", response.data); 
         }
       } catch (error) {
         // Melhor tratamento de erros

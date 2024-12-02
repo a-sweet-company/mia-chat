@@ -12,14 +12,14 @@ public class User
 
     [Required(ErrorMessage = "O campo Senha é obrigatório.")]
     [MinLength(8, ErrorMessage = "A senha deve ter no mínimo 8 caracteres.")]
-    public string Password { get; set; } // Alterado de PasswordHash para Password
+    public string Password { get; set; } 
 
     public List<ChatHistory> ChatHistories { get; set; } = new List<ChatHistory>();
 
     // Método para verificar a senha
     public bool VerifyPassword(string password)
     {
-        return BCrypt.Net.BCrypt.Verify(password, Password); // Usando Password, que é o campo da senha
+        return BCrypt.Net.BCrypt.Verify(password, Password); 
     }
 
     // Método para definir a senha
