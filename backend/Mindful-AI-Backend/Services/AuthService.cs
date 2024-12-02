@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using BCrypt.Net;
 
 public class AuthService
 {
@@ -14,10 +13,14 @@ public class AuthService
     {
         try
         {
+            // Verifica se o usuário já existe
             var existingUser = await _userRepository.GetUserByEmailAsync(user.Email);
-            if (existingUser != null) return false; // Usuário já existe
+            if (existingUser != null)
+                return false;
 
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            // Define o hash da senha usando o método do modelo
+            user.SetPassword(user.PasswordHash);
+
             await _userRepository.AddUserAsync(user);
             await _userRepository.SaveChangesAsync();
             return true;
@@ -25,16 +28,18 @@ public class AuthService
         catch (Exception ex)
         {
             Console.WriteLine($"Erro ao registrar usuário: {ex.Message}");
-            return false; // Você pode lançar a exceção ou retornar false
+            return false; // Retorna false em caso de erro
         }
     }
 
-
     public async Task<User> Login(string email, string password)
     {
+        // Busca o usuário pelo email
         var user = await _userRepository.GetUserByEmailAsync(email);
-        if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
-            return null; // Login falhou
+
+        // Verifica se o usuário existe e se a senha é válida
+        if (user == null || !user.VerifyPassword(password, user.PasswordHash))
+            return null;
 
         return user;
     }
