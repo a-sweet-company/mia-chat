@@ -27,6 +27,7 @@
                 v-model="email"
                 required
               />
+              <span v-if="inputErrors.email" class="error-text">Por favor, insira um email válido.</span>
             </div>
             <div class="input-container">
               <input
@@ -36,6 +37,7 @@
                 v-model="password"
                 required
               />
+              <span v-if="inputErrors.password" class="error-text">A senha é obrigatória.</span>
             </div>
             <div v-if="isSignUp" class="input-container">
               <input
@@ -45,6 +47,7 @@
                 v-model="confirmPassword"
                 required
               />
+              <span v-if="inputErrors.confirmPassword" class="error-text">As senhas não coincidem.</span>
             </div>
             <button type="submit">
               {{ isSignUp ? "Cadastrar" : "Entrar" }}
@@ -52,15 +55,12 @@
           </form>
           <p class="toggle-form">
             {{ isSignUp ? "Já tem uma conta?" : "Não tem uma conta?" }}
-            <a href="#" @click.prevent="toggleSignUp">{{
-              isSignUp ? "Entrar" : "Criar conta"
-            }}</a>
+            <a href="#" @click.prevent="toggleSignUp">{{ isSignUp ? "Entrar" : "Criar conta" }}</a>
           </p>
         </div>
       </div>
       <div class="footer">
         <a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a>
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       </div>
     </div>
 
@@ -95,11 +95,18 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal de Mensagens -->
+    <div v-if="modal.show" :class="['modal', modal.type]" @click="hideModal">
+      <p>{{ modal.message }}</p>
+      <button @click="hideModal"></button>
+    </div>
+
   </div>
 </template>
 
 <script>
-import api from "@/api/api"; 
+import api from "@/api/api";
 
 export default {
   data() {
@@ -108,11 +115,15 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
-      errorMessage: "", // Mensagem de erro
       inputErrors: {
         email: false,
         password: false,
         confirmPassword: false,
+      },
+      modal: {
+        show: false,
+        message: "",
+        type: "error", 
       },
     };
   },
@@ -121,7 +132,6 @@ export default {
       this.isSignUp = !this.isSignUp;
       this.password = "";
       this.confirmPassword = "";
-      this.errorMessage = "";
       this.clearInputErrors();
     },
     clearInputErrors() {
@@ -131,59 +141,89 @@ export default {
         confirmPassword: false,
       };
     },
+    showModal(message, type = "error") {
+      this.modal.message = message;
+      this.modal.type = type;
+      this.modal.show = true;
+
+      // Auto fechar o modal após 5 segundos
+      setTimeout(() => {
+        this.hideModal();
+      }, 5000);
+    },
+    hideModal() {
+      this.modal.show = false;
+      this.modal.message = "";
+      this.modal.type = "error";
+    },
+    validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    },
     async handleFormSubmit() {
       this.clearInputErrors();
-      this.errorMessage = "";
 
-      // Validação Básica
+      // Validações de formulário
+      let hasError = false;
+
       if (!this.email) {
         this.inputErrors.email = true;
-        this.errorMessage = "O email é obrigatório.";
-        return;
+        hasError = true;
+      } else if (!this.validateEmail(this.email)) {
+        this.inputErrors.email = true;
+        hasError = true;
+        this.showModal("Por favor, insira um email válido.", "error");
       }
 
       if (!this.password) {
         this.inputErrors.password = true;
-        this.errorMessage = "A senha é obrigatória.";
-        return;
+        hasError = true;
       }
 
-      if (this.isSignUp && this.password !== this.confirmPassword) {
-        this.inputErrors.password = true;
-        this.inputErrors.confirmPassword = true;
-        this.errorMessage = "As senhas não coincidem.";
+      if (this.isSignUp) {
+        if (!this.confirmPassword) {
+          this.inputErrors.confirmPassword = true;
+          hasError = true;
+        } else if (this.password !== this.confirmPassword) {
+          this.inputErrors.password = true;
+          this.inputErrors.confirmPassword = true;
+          hasError = true;
+          this.showModal("As senhas não coincidem.", "error");
+        }
+      }
+
+      if (hasError) {
         return;
       }
 
       try {
         if (this.isSignUp) {
-          // Endpoint de cadastro
-          const response = await api.post("/auth/register", {
-            email: this.email,
-            password: this.password,
-          });
-          alert("Conta criada com sucesso!"); 
-          console.log("Cadastro:", response.data); 
+          // Chamada de cadastro via api.js
+          const response = await api.auth.register(this.email, this.password);
+          this.showModal("Conta criada com sucesso!", "success");
+          console.log("Cadastro:", response.data);
+          // Opcional: Redirecionar ou limpar campos após o cadastro
+          this.email = "";
+          this.password = "";
+          this.confirmPassword = "";
+          this.isSignUp = false;
         } else {
-          // Endpoint de login
-          const response = await api.post("/auth/login", {
-            email: this.email,
-            password: this.password,
-          });
-          alert("Login realizado com sucesso!");
-          console.log("Login:", response.data); 
+          // Chamada de login via api.js
+          const response = await api.auth.login(this.email, this.password);
+          this.showModal("Login realizado com sucesso!", "success");
+          console.log("Login:", response.data);
+          // Opcional: Redirecionar após o login
         }
       } catch (error) {
-        // Melhor tratamento de erros
         if (error.response) {
-          this.errorMessage =
-            error.response.data || "Erro desconhecido no servidor.";
+          const serverMessage = error.response.data.message || "Erro desconhecido no servidor.";
+          this.showModal(serverMessage, "error");
           console.error("Erro no servidor:", error.response);
         } else if (error.request) {
-          this.errorMessage = "Erro na comunicação com o servidor.";
+          this.showModal("Erro na comunicação com o servidor.", "error");
           console.error("Erro de requisição:", error.request);
         } else {
-          this.errorMessage = "Erro inesperado: " + error.message;
+          this.showModal("Erro inesperado: " + error.message, "error");
           console.error("Erro:", error.message);
         }
       }
@@ -193,7 +233,6 @@ export default {
 </script>
 
 <style scoped>
-/* Layout geral */
 :root {
   margin: 0;
   padding: 0;
@@ -210,7 +249,7 @@ body {
 }
 
 .input-container input.error {
-  border: 0.2vw solid #ff0000; /* Borda vermelha para campos com erro */
+  border: 0.2vw solid #ff0000;
 }
 
 .error-message {
@@ -230,7 +269,6 @@ body {
   max-height: 90vh;
 }
 
-/* Lado esquerdo: Formulário de login */
 .left-section {
   color: #000000;
   width: 50%;
@@ -265,7 +303,7 @@ body {
 
 .slogan h2 {
   font-size: 2.3vw;
-  color: #1199ce; /* Cor azul padrão */
+  color: #1199ce;
 }
 
 .subtitulo {
@@ -303,7 +341,7 @@ body {
 .input-container input {
   width: 100%;
   padding: 0.8vw;
-  width: 40vw; /* Limita a largura dos inputs */
+  width: 40vw;
   border-radius: 0.6vw;
   background-color: #dfdfdf;
   border: 0.2vw solid #353535;
@@ -384,5 +422,62 @@ button[type="submit"]:hover {
   font-size: 1.2vw;
   line-height: 1.5;
   margin-left: 20px;
+}
+
+.modal {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 16px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+}
+
+.modal p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.modal.success {
+  border-left: 5px solid #28a745;
+}
+
+.modal.error {
+  border-left: 5px solid #dc3545;
+}
+
+.modal button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.error-text {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  display: block;
+}
+
+.input-container {
+  position: relative;
+}
+
+/* Opcional: Animação de entrada para o modal */
+.modal-enter-active, .modal-leave-active {
+  transition: opacity 0.5s;
+}
+.modal-enter, .modal-leave-to /* .modal-leave-active em <2.1.8 */ {
+  opacity: 0;
 }
 </style>

@@ -23,13 +23,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<AuthService>(); 
 
+
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+    options.AddPolicy("AllowSpecificOrigins", policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        policy.WithOrigins("http://localhost:8080") // URL do frontend
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
@@ -38,6 +40,7 @@ var app = builder.Build();
 app.UseCors("AllowAll");
 Console.WriteLine("CORS configurado: AllowAll");
 app.UseCors("AllowFrontend");
+app.UseCors("AllowSpecificOrigins");
 
 app.UseSwagger();
 app.UseSwaggerUI();
