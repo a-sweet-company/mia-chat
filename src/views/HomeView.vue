@@ -123,7 +123,7 @@ export default {
       modal: {
         show: false,
         message: "",
-        type: "error", 
+        type: "error",
       },
     };
   },
@@ -160,10 +160,21 @@ export default {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return re.test(email);
     },
-    async handleFormSubmit() {
+    async validateDomain(email) {
+      const domain = email.split('@')[1];
+      try {
+        const response = await fetch(`https://dns.google/resolve?name=${domain}&type=MX`);
+        if (response.ok) {
+          const data = await response.json();
+          return data.Answer && data.Answer.length > 0;
+        }
+      } catch (error) {
+        console.error("Erro ao validar domínio:", error);
+      }
+      return false;
+    },
+    async validateForm() {
       this.clearInputErrors();
-
-      // Validações de formulário
       let hasError = false;
 
       if (!this.email) {
@@ -173,6 +184,10 @@ export default {
         this.inputErrors.email = true;
         hasError = true;
         this.showModal("Por favor, insira um email válido.", "error");
+      } else if (!await this.validateDomain(this.email)) {
+        this.inputErrors.email = true;
+        hasError = true;
+        this.showModal("Domínio de email inválido.", "error");
       }
 
       if (!this.password) {
@@ -192,45 +207,59 @@ export default {
         }
       }
 
-      if (hasError) {
+      return !hasError;
+    },
+    async handleFormSubmit() {
+      if (!await this.validateForm()) {
         return;
       }
 
       try {
         if (this.isSignUp) {
-          // Chamada de cadastro via api.js
-          const response = await api.auth.register(this.email, this.password);
-          this.showModal("Conta criada com sucesso!", "success");
-          console.log("Cadastro:", response.data);
-          // Opcional: Redirecionar ou limpar campos após o cadastro
-          this.email = "";
-          this.password = "";
-          this.confirmPassword = "";
-          this.isSignUp = false;
+          await this.registerUser();
         } else {
-          // Chamada de login via api.js
-          const response = await api.auth.login(this.email, this.password);
-          this.showModal("Login realizado com sucesso!", "success");
-          console.log("Login:", response.data);
-          // Opcional: Redirecionar após o login
+          await this.loginUser();
         }
       } catch (error) {
-        if (error.response) {
-          const serverMessage = error.response.data.message || "Erro desconhecido no servidor.";
-          this.showModal(serverMessage, "error");
-          console.error("Erro no servidor:", error.response);
-        } else if (error.request) {
-          this.showModal("Erro na comunicação com o servidor.", "error");
-          console.error("Erro de requisição:", error.request);
-        } else {
-          this.showModal("Erro inesperado: " + error.message, "error");
-          console.error("Erro:", error.message);
-        }
+        this.handleError(error);
       }
+    },
+    async registerUser() {
+      const response = await api.auth.register(this.email, this.password);
+      this.showModal("Conta criada com sucesso!", "success");
+      console.log("Cadastro:", response.data);
+      this.resetForm();
+    },
+    async loginUser() {
+      const response = await api.auth.login(this.email, this.password);
+      this.showModal("Login realizado com sucesso!", "success");
+      console.log("Login:", response.data);
+      // Opcional: Redirecionar após o login
+    },
+    handleError(error) {
+      if (error.response) {
+        const serverMessage = error.response.data.message || "Erro desconhecido no servidor.";
+        this.showModal(serverMessage, "error");
+        console.error("Erro no servidor:", error.response);
+      } else if (error.request) {
+        this.showModal("Erro na comunicação com o servidor.", "error");
+        console.error("Erro de requisição:", error.request);
+      } else {
+        this.showModal("Erro inesperado: " + error.message, "error");
+        console.error("Erro:", error.message);
+      }
+    },
+    resetForm() {
+      this.email = "";
+      this.password = "";
+      this.confirmPassword = "";
+      this.isSignUp = false;
     },
   },
 };
 </script>
+
+
 
 <style scoped>
 :root {
