@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-public class AuthService
+﻿public class AuthService
 {
     private readonly IUserRepository _userRepository;
 
@@ -18,8 +16,6 @@ public class AuthService
             if (existingUser != null)
                 return false;
 
-            user.SetPassword(user.Password); 
-         
             await _userRepository.AddUserAsync(user);
             await _userRepository.SaveChangesAsync();
             return true;
@@ -27,7 +23,7 @@ public class AuthService
         catch (Exception ex)
         {
             Console.WriteLine($"Erro ao registrar usuário: {ex.Message}");
-            return false; 
+            return false;
         }
     }
 
@@ -37,7 +33,7 @@ public class AuthService
         var user = await _userRepository.GetUserByEmailAsync(email);
 
         // Verifica se o usuário existe e se a senha é válida
-        if (user == null || !user.VerifyPassword(password))  
+        if (user == null || !user.VerifyPassword(password))
             return null;
 
         return user;

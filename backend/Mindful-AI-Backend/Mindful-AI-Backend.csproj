@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Dtos\NovaPasta\**" />
     <Compile Remove="Models\NovaPasta\**" />
+    <Content Remove="Models\Dtos\NovaPasta\**" />
     <Content Remove="Models\NovaPasta\**" />
+    <EmbeddedResource Remove="Models\Dtos\NovaPasta\**" />
     <EmbeddedResource Remove="Models\NovaPasta\**" />
+    <None Remove="Models\Dtos\NovaPasta\**" />
     <None Remove="Models\NovaPasta\**" />
   </ItemGroup>
 
