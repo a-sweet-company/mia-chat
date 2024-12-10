@@ -1,6 +1,10 @@
-﻿// Models/Dtos/UserCreateDto.cs
-public class UserCreateDto
+﻿namespace Mindful_AI_Backend.Models.Dtos
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public class UserCreateDto
+    {
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
 }
+    

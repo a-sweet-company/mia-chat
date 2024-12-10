@@ -8,6 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Dtos\NovaPasta\**" />
+    <Compile Remove="Models\NovaPasta\**" />
+    <Content Remove="Models\Dtos\NovaPasta\**" />
+    <Content Remove="Models\NovaPasta\**" />
+    <EmbeddedResource Remove="Models\Dtos\NovaPasta\**" />
+    <EmbeddedResource Remove="Models\NovaPasta\**" />
+    <None Remove="Models\Dtos\NovaPasta\**" />
+    <None Remove="Models\NovaPasta\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Dtos.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

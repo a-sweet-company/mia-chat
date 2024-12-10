@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style>
-/* Global styles or scoped styles if necessary */
+:root{
+  font-family: "Jost", sans-serif;
+}
 </style>
