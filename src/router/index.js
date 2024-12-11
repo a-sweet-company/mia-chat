@@ -27,5 +27,10 @@ export default new Router({
       name: 'NotFound',
       component: () => import('@/views/NotFoundView.vue'), // Importação dinâmica
     },
+    {
+      path: '/chat', // Caminho da rota
+      name: 'Chat', // Nome da rota
+      component: () => import('@/views/ChatView.vue'), // Importação dinâmica
+    }
   ],
 });
