@@ -231,11 +231,33 @@ export default {
       this.resetForm();
     },
     async loginUser() {
-      const response = await api.auth.login(this.email, this.password);
-      this.showModal("Login realizado com sucesso!", "success");
-      console.log("Login:", response.data);
-      // Opcional: Redirecionar após o login
-    },
+  try {
+    // Faz a requisição de login
+    const response = await api.auth.login(this.email, this.password);
+
+    // Exibe mensagem de sucesso
+    this.showModal("Login realizado com sucesso!", "success");
+
+    // Exibe a resposta no console (pode ser removido em produção)
+    console.log("Login:", response.data);
+
+    // Opcional: Redireciona para outra página após o login
+    this.$router.push('/dashboard'); // Substitua '/dashboard' pela rota desejada
+  } catch (error) {
+    // Trata erros no login
+    if (error.response && error.response.status === 400) {
+      // Erros específicos (como 400 Bad Request)
+      this.showModal("Credenciais inválidas. Tente novamente.", "error");
+    } else {
+      // Erros gerais
+      this.showModal("Ocorreu um erro ao tentar fazer login.", "error");
+    }
+
+    // Exibe detalhes do erro no console (útil para depuração)
+    console.error("Erro no login:", error.response?.data || error.message);
+  }
+}
+,
     handleError(error) {
       if (error.response) {
         const serverMessage = error.response.data.message || "Erro desconhecido no servidor.";
