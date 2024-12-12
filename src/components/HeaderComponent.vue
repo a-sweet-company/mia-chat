@@ -5,7 +5,7 @@
         v-for="option in options"
         :key="option.name"
         :to="option.path"
-        :class="{ active: option.name === activeOption }"
+        :class="{ active: option.name === activeOption, hover: hoveredOption === option.name }"
         @mouseover="hoveredOption = option.name"
         @mouseleave="hoveredOption = null"
         @click="setActive(option.name)"
@@ -63,17 +63,17 @@ export default {
   transition: all 0.3s ease; /* Suaviza a transição */
 }
 
-/* Efeito de hover nos links */
-.header nav a:hover {
-  color: #fff;
-  background-color: #1199CE; /* Cor de fundo no hover */
-}
-
 /* Estilo para o link ativo */
 .header nav a.active {
   color: #fff;
   background-color: #1199CE;
   font-weight: bold;
+}
+
+/* Efeito de hover nos links */
+.header nav a.hover {
+  color: #fff;
+  background-color: #1199CE; /* Cor de fundo no hover */
 }
 
 /* Estilo responsivo para telas menores */
