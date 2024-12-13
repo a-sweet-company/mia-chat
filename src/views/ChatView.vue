@@ -1,10 +1,9 @@
 <template>
   <div class="chat-view">
-    <!-- Cabeçalho -->
     <HeaderComponent />
 
     <div v-if="showIntroModal" class="intro-modal">
-      <p>Bem-vindo! Pronto para conversar com a Mia?</p>
+      <p>Bem-vindo! Pronto para conversar com a Mia?</p>  
       <button @click="closeIntroModal">Claro</button>
     </div>
 
@@ -21,14 +20,13 @@
 <script>
 import MessageList from '@/components/MessageList.vue';
 import MessageInput from '@/components/MessageInput.vue';
-
-import HeaderComponent from '@/components/HeaderComponent.vue'; // Importação do componente Header
+import HeaderComponent from '@/components/HeaderComponent.vue'; 
 
 export default {
   components: {
     MessageList,
     MessageInput,
-    HeaderComponent, // Registro do HeaderComponent
+    HeaderComponent, 
   },
   data() {
     return {
@@ -55,12 +53,10 @@ export default {
 <style scoped>
 .intro-modal {
   position: fixed;
-  /* Estilize o modal como desejado */
 }
 .prompt-suggestions span {
   cursor: pointer;
   color: #1199CE;
   padding: 5px;
-  /* Adicione mais estilo */
 }
 </style>

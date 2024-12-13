@@ -1,7 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
-// Importação das views
 import HomeView from '@/views/HomeView.vue';
 import AboutView from '@/views/AboutView.vue';
 

@@ -27,7 +27,9 @@
                 v-model="email"
                 required
               />
-              <span v-if="inputErrors.email" class="error-text">Por favor, insira um email válido.</span>
+              <span v-if="inputErrors.email" class="error-text"
+                >Por favor, insira um email válido.</span
+              >
             </div>
             <div class="input-container">
               <input
@@ -37,7 +39,9 @@
                 v-model="password"
                 required
               />
-              <span v-if="inputErrors.password" class="error-text">A senha é obrigatória.</span>
+              <span v-if="inputErrors.password" class="error-text"
+                >A senha é obrigatória.</span
+              >
             </div>
             <div v-if="isSignUp" class="input-container">
               <input
@@ -47,7 +51,9 @@
                 v-model="confirmPassword"
                 required
               />
-              <span v-if="inputErrors.confirmPassword" class="error-text">As senhas não coincidem.</span>
+              <span v-if="inputErrors.confirmPassword" class="error-text"
+                >As senhas não coincidem.</span
+              >
             </div>
             <button type="submit">
               {{ isSignUp ? "Cadastrar" : "Entrar" }}
@@ -55,7 +61,9 @@
           </form>
           <p class="toggle-form">
             {{ isSignUp ? "Já tem uma conta?" : "Não tem uma conta?" }}
-            <a href="#" @click.prevent="toggleSignUp">{{ isSignUp ? "Entrar" : "Criar conta" }}</a>
+            <a href="#" @click.prevent="toggleSignUp">{{
+              isSignUp ? "Entrar" : "Criar conta"
+            }}</a>
           </p>
         </div>
       </div>
@@ -101,7 +109,6 @@
       <p>{{ modal.message }}</p>
       <button @click="hideModal"></button>
     </div>
-
   </div>
 </template>
 
@@ -161,9 +168,11 @@ export default {
       return re.test(email);
     },
     async validateDomain(email) {
-      const domain = email.split('@')[1];
+      const domain = email.split("@")[1];
       try {
-        const response = await fetch(`https://dns.google/resolve?name=${domain}&type=MX`);
+        const response = await fetch(
+          `https://dns.google/resolve?name=${domain}&type=MX`
+        );
         if (response.ok) {
           const data = await response.json();
           return data.Answer && data.Answer.length > 0;
@@ -184,7 +193,7 @@ export default {
         this.inputErrors.email = true;
         hasError = true;
         this.showModal("Por favor, insira um email válido.", "error");
-      } else if (!await this.validateDomain(this.email)) {
+      } else if (!(await this.validateDomain(this.email))) {
         this.inputErrors.email = true;
         hasError = true;
         this.showModal("Domínio de email inválido.", "error");
@@ -210,7 +219,7 @@ export default {
       return !hasError;
     },
     async handleFormSubmit() {
-      if (!await this.validateForm()) {
+      if (!(await this.validateForm())) {
         return;
       }
 
@@ -231,36 +240,23 @@ export default {
       this.resetForm();
     },
     async loginUser() {
-  try {
-    // Faz a requisição de login
-    const response = await api.auth.login(this.email, this.password);
-
-    // Exibe mensagem de sucesso
-    this.showModal("Login realizado com sucesso!", "success");
-
-    // Exibe a resposta no console (pode ser removido em produção)
-    console.log("Login:", response.data);
-
-    // Opcional: Redireciona para outra página após o login
-    this.$router.push('/dashboard'); // Substitua '/dashboard' pela rota desejada
-  } catch (error) {
-    // Trata erros no login
-    if (error.response && error.response.status === 400) {
-      // Erros específicos (como 400 Bad Request)
-      this.showModal("Credenciais inválidas. Tente novamente.", "error");
-    } else {
-      // Erros gerais
-      this.showModal("Ocorreu um erro ao tentar fazer login.", "error");
-    }
-
-    // Exibe detalhes do erro no console (útil para depuração)
-    console.error("Erro no login:", error.response?.data || error.message);
-  }
-}
-,
+      try {
+        const response = await api.auth.login(this.email, this.password);
+        this.showModal("Login realizado com sucesso!", "success");
+        this.$router.push("/chat"); 
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          this.showModal("Credenciais inválidas. Tente novamente.", "error");
+        } else {
+          this.showModal("Ocorreu um erro ao tentar fazer login.", "error");
+        }
+        console.error("Erro no login:", error.response?.data || error.message);
+      }
+    },
     handleError(error) {
       if (error.response) {
-        const serverMessage = error.response.data.message || "Erro desconhecido no servidor.";
+        const serverMessage =
+          error.response.data.message || "Erro desconhecido no servidor.";
         this.showModal(serverMessage, "error");
         console.error("Erro no servidor:", error.response);
       } else if (error.request) {
@@ -280,8 +276,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style scoped>
 :root {
@@ -524,11 +518,11 @@ button[type="submit"]:hover {
   position: relative;
 }
 
-/* Opcional: Animação de entrada para o modal */
-.modal-enter-active, .modal-leave-active {
+.modal-enter-active,
+.modal-leave-active {
   transition: opacity 0.5s;
 }
-.modal-enter, .modal-leave-to /* .modal-leave-active em <2.1.8 */ {
+.modal-enter, .modal-leave-to {
   opacity: 0;
 }
 </style>
