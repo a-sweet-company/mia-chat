@@ -16,14 +16,11 @@ builder.WebHost.ConfigureKestrel(options =>
     });
 });
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<AuthService>(); 
-
-
 
 builder.Services.AddCors(options =>
 {
@@ -48,6 +45,20 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+// Servir arquivos estáticos (frontend)
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+// Middleware para redirecionar para o index.html
+app.Use(async (context, next) =>
+{
+    if (!context.Request.Path.Value.StartsWith("/api") &&
+        !System.IO.File.Exists($"wwwroot{context.Request.Path}"))
+    {
+        context.Request.Path = "/index.html";
+    }
+    await next();
+});
 
 app.MapControllers();
 
