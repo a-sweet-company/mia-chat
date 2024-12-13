@@ -2,10 +2,12 @@
   <div class="chat-view">
     <HeaderComponent />
 
-    <div v-if="showIntroModal" class="intro-modal">
-      <p>Bem-vindo! Pronto para conversar com a Mia?</p>  
-      <button @click="closeIntroModal">Claro</button>
-    </div>
+    <transition name="fade">
+      <div v-if="showIntroModal" class="intro-modal">
+        <p>Bem-vindo! Pronto para conversar com a Mia?</p>
+        <button @click="closeIntroModal">Claro</button>
+      </div>
+    </transition>
 
     <MessageList :messages="messages" />
     <div class="prompt-suggestions">
@@ -18,21 +20,25 @@
 </template>
 
 <script>
-import MessageList from '@/components/MessageList.vue';
-import MessageInput from '@/components/MessageInput.vue';
-import HeaderComponent from '@/components/HeaderComponent.vue'; 
+import MessageList from "@/components/MessageList.vue";
+import MessageInput from "@/components/MessageInput.vue";
+import HeaderComponent from "@/components/HeaderComponent.vue";
 
 export default {
   components: {
     MessageList,
     MessageInput,
-    HeaderComponent, 
+    HeaderComponent,
   },
   data() {
     return {
       showIntroModal: true,
       messages: [],
-      prompts: ["Como está o clima?", "Me conte uma piada", "Qual a previsão para amanhã?"],
+      prompts: [
+        "Como está o clima?",
+        "Me conte uma piada",
+        "Qual a previsão para amanhã?",
+      ],
     };
   },
   methods: {
@@ -40,10 +46,10 @@ export default {
       this.showIntroModal = false;
     },
     addPrompt(prompt) {
-      this.$emit('fillInput', prompt);
+      this.$emit("fillInput", prompt);
     },
     sendMessage(message) {
-      this.messages.push({ text: message, sender: 'user' });
+      this.messages.push({ text: message, sender: "user" });
       // Lógica para resposta da Mia
     },
   },
@@ -56,7 +62,15 @@ export default {
 }
 .prompt-suggestions span {
   cursor: pointer;
-  color: #1199CE;
+  color: #1199ce;
   padding: 5px;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 </style>

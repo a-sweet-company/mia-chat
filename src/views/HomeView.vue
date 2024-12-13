@@ -3,7 +3,10 @@
     <!-- Lado esquerdo: Formulário de login/cadastro -->
     <div class="left-section">
       <div class="logo">
-        <img src="../assets/miaLogoBlack.svg" alt="Mindful AI Logo" />
+        <img
+          :src="require('@/assets/miaLogoBlack.svg')"
+          alt="Mindful AI Logo"
+        />
       </div>
       <div class="slogan">
         <h2>
@@ -173,12 +176,12 @@ export default {
         const response = await fetch(
           `https://dns.google/resolve?name=${domain}&type=MX`
         );
-        if (response.ok) {
-          const data = await response.json();
-          return data.Answer && data.Answer.length > 0;
-        }
+        if (!response.ok) throw new Error("Falha ao validar domínio.");
+        const data = await response.json();
+        return data.Answer && data.Answer.length > 0;
       } catch (error) {
         console.error("Erro ao validar domínio:", error);
+        return false;
       }
       return false;
     },
@@ -243,7 +246,11 @@ export default {
       try {
         const response = await api.auth.login(this.email, this.password);
         this.showModal("Login realizado com sucesso!", "success");
-        this.$router.push("/chat"); 
+        if (this.$router && this.$router.push) {
+          this.$router.push("/chat");
+        } else {
+          console.error("Router não configurado corretamente.");
+        }
       } catch (error) {
         if (error.response && error.response.status === 400) {
           this.showModal("Credenciais inválidas. Tente novamente.", "error");
@@ -522,7 +529,8 @@ button[type="submit"]:hover {
 .modal-leave-active {
   transition: opacity 0.5s;
 }
-.modal-enter, .modal-leave-to {
+.modal-enter,
+.modal-leave-to {
   opacity: 0;
 }
 </style>
