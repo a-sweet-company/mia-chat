@@ -388,6 +388,7 @@ body {
 .input-container {
   width: 100%;
   margin-bottom: 1.5vw;
+  font-family: "Jost", sans-serif;
 }
 
 .input-container input {
