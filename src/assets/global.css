@@ -12,4 +12,20 @@
     overflow-x: hidden;
     font-family: 'Jost', sans-serif; 
   }
-  
+  .root {
+    --color-preto : #000000;
+    --color-branco : #ffffff;
+    --color-azul : #1199CE;
+    --color-cinza : #353535;
+    --color-cinza-claro : #2E2E2E;
+    --color-branco-claro : #ECECEC;
+
+  }
+  .jost-unique {
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400; /* Ajuste o peso conforme necessário */
+    font-style: normal;
+  }
+ 
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
