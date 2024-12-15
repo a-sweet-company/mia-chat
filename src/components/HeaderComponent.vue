@@ -5,9 +5,7 @@
         v-for="option in options"
         :key="option.name"
         :to="option.path"
-        :class="{ active: option.name === activeOption, hover: hoveredOption === option.name }"
-        @mouseover="hoveredOption = option.name"
-        @mouseleave="hoveredOption = null"
+        :class="{ active: activeOption === option.name }"
         @click="setActive(option.name)"
       >
         {{ option.name }}
@@ -18,77 +16,75 @@
 
 <script>
 export default {
-  props: ['activeOption'],
   data() {
     return {
       options: [
-        { name: 'Home', path: '/' },
-        { name: 'Chat', path: '/chat' },
-        { name: 'Settings', path: '/settings' },
+        { name: 'CHAT', path: '/chat' },
+        { name: 'SOBRE', path: '/sobre' },
+        { name: 'APOIAR', path: '/apoiar' },
+        { name: 'PERFIL', path: '/perfil' },
       ],
-      hoveredOption: null,
+      activeOption: 'CHAT',
     };
   },
   methods: {
     setActive(option) {
-      this.$emit('update:activeOption', option);
+      this.activeOption = option;
     },
   },
 };
 </script>
 
 <style scoped>
-/* Estilo geral do header */
+/* Header container */
 .header {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente o conteúdo */
-  background-color: #f4f4f4;
-  padding: 15px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  justify-content: center;
+  background-color: none;
+  padding: 20px 0;
 }
 
-/* Estilo da navegação */
+/* Navegação com gap */
 .header nav {
   display: flex;
-  gap: 20px; /* Espaçamento entre os links */
+  gap: 70px;
 }
 
-/* Estilo dos links */
+/* Estilo dos botões */
 .header nav a {
-  color: #333;
   text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition: all 0.3s ease; /* Suaviza a transição */
+  color: #333;
+  padding: 4px 60px;
+  border: 1px solid #000000;
+  background-color: none;
+  border-radius: 6px; 
+  transition: all 0.3s ease;
+  font-size: 1.0rem;
 }
 
-/* Estilo para o link ativo */
-.header nav a.active {
-  color: #fff;
+/* Hover */
+.header nav a:hover {
   background-color: #1199CE;
-  font-weight: bold;
-}
-
-/* Efeito de hover nos links */
-.header nav a.hover {
   color: #fff;
-  background-color: #1199CE; /* Cor de fundo no hover */
+  border-color: #1199CE;
 }
 
-/* Estilo responsivo para telas menores */
+/* Aba ativa */
+.header nav a.active {
+  background-color: #353535;
+  color: #fff;
+  border-color: #353535;
+}
+
+/* Ajustes para dispositivos móveis */
 @media (max-width: 768px) {
-  .header {
-    padding: 10px 15px;
-  }
-
   .header nav {
-    gap: 10px; /* Reduz o espaçamento entre os links */
+    gap: 10px;
   }
-
   .header nav a {
-    padding: 8px 10px; /* Reduz o padding dos links */
-    font-size: 0.9rem; /* Ajusta o tamanho da fonte */
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
 }
+
 </style>
