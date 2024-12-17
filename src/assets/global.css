@@ -19,7 +19,11 @@
     --color-cinza : #353535;
     --color-cinza-claro : #2E2E2E;
     --color-branco-claro : #ECECEC;
-
+    --color-vermelho-erro : #ff0000;
+    --color-verde-sucesso : #28a745;
+    --color-marmore-footer: #bbbbbb;
+    --color-marmore-modal: #cccccc;
+    
   }
   .jost-unique {
     font-family: "Jost", sans-serif;

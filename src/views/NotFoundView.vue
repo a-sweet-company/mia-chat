@@ -22,7 +22,7 @@ export default {
 
 h1 {
   font-size: 3em;
-  color: #ff4d4f;
+  color: var(--color-vermelho-erro);
 }
 
 p {
@@ -33,7 +33,7 @@ p {
 a {
   display: block;
   margin-top: 10px;
-  color: #3498db;
+  color: var(--color-azul);
   text-decoration: none;
   font-weight: bold;
 }

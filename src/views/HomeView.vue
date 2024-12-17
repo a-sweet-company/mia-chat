@@ -301,11 +301,11 @@ body {
 }
 
 .input-container input.error {
-  border: 0.2vw solid #ff0000;
+  border: 0.2vw solid var(--color-vermelho-erro);
 }
 
 .error-message {
-  color: #ff0000;
+  color: var(--color-vermelho-erro);
   font-size: 1vw;
   margin-top: 1vw;
   text-align: center;
@@ -316,13 +316,13 @@ body {
   flex-direction: row;
   min-height: 100vh;
   font-family: "Jost", sans-serif;
-  background-color: #ececec;
+  background-color: var(--color-branco-claro);
   width: 100vw;
   max-height: 90vh;
 }
 
 .left-section {
-  color: #000000;
+  color: var(--color-preto);
   width: 50%;
   padding-bottom: 8vh;
   display: flex;
@@ -332,7 +332,7 @@ body {
   border-radius: 20px;
   height: 120vh;
   max-height: 90vh;
-  border: solid 3px black;
+  border: solid 3px var(--color-preto);
   margin: 2vw 1.2vw;
 }
 
@@ -355,7 +355,7 @@ body {
 
 .slogan h2 {
   font-size: 2.3vw;
-  color: #1199ce;
+  color: var(--color-azul);
 }
 
 .subtitulo {
@@ -379,7 +379,7 @@ body {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  border: 0.2vw solid #353535;
+  border: 0.2vw solid var(--color-cinza);
   border-radius: 0.8vw;
   padding: 2vw;
   box-sizing: border-box;
@@ -396,14 +396,14 @@ body {
   padding: 0.8vw;
   width: 40vw;
   border-radius: 0.6vw;
-  background-color: #dfdfdf;
-  border: 0.2vw solid #353535;
+  background-color: var(--color-branco);
+  border: 0.2vw solid var(--color-cinza);
   font-size: 1.1vw;
 }
 
 button[type="submit"] {
-  background-color: #1199ce;
-  color: white;
+  background-color: var(--color-azul);
+  color: var(--color-branco);
   border: none;
   border-radius: 0.6vw;
   padding: 0.8vw;
@@ -414,7 +414,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #128cbd;
+  background-color: var(--color-azul);
   transition: background-color 0.3s ease;
 }
 
@@ -424,32 +424,32 @@ button[type="submit"]:hover {
 }
 
 .toggle-form a {
-  color: #1199ce;
+  color: var(--color-azul);
   text-decoration: none;
 }
 
 .footer {
   font-size: 0.9vw;
-  color: #bbbbbb;
+  color: var(--color-marmore-footer);
   text-align: center;
   margin-top: 2%;
 }
 
 .footer a {
-  color: #bbbbbb;
+  color: var(--color-marmore-footer);
   margin: 0 5px;
   text-decoration: none;
 }
 
 /* Lado direito: Informações sobre Mia ----------------------------------------------------------------- */
 .right-section {
-  color: #333333;
+  color: var(--color-cinza);
   width: 50%;
   padding: 4vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #ececec;
+  background-color: var(--color-branco-claro);
 }
 
 .mia-logo img {
@@ -482,11 +482,11 @@ button[type="submit"]:hover {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
+  background-color: var(--color-branco);
+  border: 1px solid var(--color-marmore-modal);
   border-radius: 8px;
   padding: 16px 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px var(--color-preto);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -500,11 +500,11 @@ button[type="submit"]:hover {
 }
 
 .modal.success {
-  border-left: 5px solid #28a745;
+  border-left: 5px solid var(--color-verde-sucesso);
 }
 
 .modal.error {
-  border-left: 5px solid #dc3545;
+  border-left: 5px solid var(--color-vermelho-erro);
 }
 
 .modal button {
@@ -512,11 +512,11 @@ button[type="submit"]:hover {
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  color: #007bff;
+  color: var(--color-azul);
 }
 
 .error-text {
-  color: #dc3545;
+  color: var(--color-vermelho-erro);
   font-size: 0.9rem;
   margin-top: 4px;
   display: block;

@@ -62,7 +62,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #ececec;
+  background-color: var(--color-branco-claro);
 }
 
 .intro-modal {
@@ -70,7 +70,7 @@ export default {
 }
 .prompt-suggestions span {
   cursor: pointer;
-  color: #1199ce;
+  color: var(--color-azul);
   padding: 5px;
 }
 
