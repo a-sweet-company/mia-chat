@@ -53,9 +53,9 @@ export default {
 /* Estilo dos botões */
 .header nav a {
   text-decoration: none;
-  color: #333;
+  color: var(--color-cinza);
   padding: 4px 60px;
-  border: 1px solid #000000;
+  border: 1px solid var(--color-preto);
   background-color: none;
   border-radius: 6px; 
   transition: all 0.3s ease;
@@ -64,16 +64,16 @@ export default {
 
 /* Hover */
 .header nav a:hover {
-  background-color: #1199CE;
-  color: #fff;
-  border-color: #1199CE;
+  background-color: var(--color-azul);
+  color: var(--color-branco);
+  border-color: var(--color-azul);
 }
 
 /* Aba ativa */
 .header nav a.active {
-  background-color: #353535;
-  color: #fff;
-  border-color: #353535;
+  background-color: var(--color-cinza);
+  color: var(--color-branco);
+  border-color: var(--color-cinza);
 }
 
 /* Ajustes para dispositivos móveis */
