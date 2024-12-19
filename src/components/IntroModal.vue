@@ -43,7 +43,7 @@ export default {
   transform: translate(-50%, -50%);
   background-color: none;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   width: 500px;

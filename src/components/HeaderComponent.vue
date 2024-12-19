@@ -21,7 +21,7 @@ export default {
       options: [
         { name: 'CHAT', path: '/chat' },
         { name: 'SOBRE', path: '/sobre' },
-        { name: 'APOIAR', path: '/apoiar' },
+        { name: 'HOME', path: '/' },
         { name: 'PERFIL', path: '/perfil' },
       ],
       activeOption: 'CHAT',
@@ -36,7 +36,6 @@ export default {
 </script>
 
 <style scoped>
-/* Header container */
 .header {
   display: flex;
   justify-content: center;
@@ -44,13 +43,11 @@ export default {
   padding: 20px 0;
 }
 
-/* Navegação com gap */
 .header nav {
   display: flex;
   gap: 70px;
 }
 
-/* Estilo dos botões */
 .header nav a {
   text-decoration: none;
   color: var(--color-cinza);
@@ -62,21 +59,18 @@ export default {
   font-size: 1.0rem;
 }
 
-/* Hover */
 .header nav a:hover {
   background-color: var(--color-azul);
   color: var(--color-branco);
   border-color: var(--color-azul);
 }
 
-/* Aba ativa */
 .header nav a.active {
   background-color: var(--color-cinza);
   color: var(--color-branco);
   border-color: var(--color-cinza);
 }
 
-/* Ajustes para dispositivos móveis */
 @media (max-width: 768px) {
   .header nav {
     gap: 10px;
@@ -86,5 +80,4 @@ export default {
     font-size: 0.8rem;
   }
 }
-
 </style>

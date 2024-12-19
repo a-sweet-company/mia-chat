@@ -3,11 +3,6 @@
     <HeaderComponent />
     <IntroModal :showIntroModal="showIntroModal" @close-intro-modal="closeIntroModal" />
     <MessageList :messages="messages" />
-    <div class="prompt-suggestions">
-      <span v-for="prompt in prompts" :key="prompt" @click="addPrompt(prompt)">
-        {{ prompt }}
-      </span>
-    </div>
     <MessageInput @send-message="sendMessage" />
   </div>
 </template>
@@ -29,11 +24,6 @@ export default {
     return {
       showIntroModal: true,
       messages: [],
-      prompts: [
-        "Como está o clima?",
-        "Me conte uma piada",
-        "Qual a previsão para amanhã?",
-      ]
     };
   },
   methods: {
@@ -70,14 +60,6 @@ export default {
   flex-direction: column;
   height: 100vh;
   background-color: var(--color-branco-claro);
-}
-
-.prompt-suggestions {
-  display: flex;
-  justify-content: space-around;
-  background-color: var(--color-marmore-footer);
-  padding: 10px;
-  border-radius: 5px;
 }
 
 .prompt-suggestions span {
