@@ -40,7 +40,6 @@ export default {
   justify-content: center;
   padding: 20px 0;
   background-color: transparent;
-  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -69,6 +68,7 @@ export default {
   color: var(--color-preto);
   background: transparent;
   padding: 3px 10px;
+  
 }
 
 .send-button {

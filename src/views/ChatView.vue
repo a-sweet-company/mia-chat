@@ -1,9 +1,11 @@
 <template>
   <div class="chat-view">
     <HeaderComponent />
+    <div class="chat-container">
     <IntroModal :showIntroModal="showIntroModal" @close-intro-modal="closeIntroModal" />
     <MessageList :messages="messages" />
     <MessageInput @send-message="sendMessage" />
+  </div>
   </div>
 </template>
 
@@ -34,7 +36,8 @@ export default {
       this.$emit("fillInput", prompt);
     },
     async sendMessage(message) {
-      this.messages.push({ id: Date.now(), text: message, sender: "user", avatar: 'path/to/user/avatar.png' });
+      const date = new Date();
+      this.messages.push({ hora:date.getHours(),minutos:date.getMinutes(), text: message});
       
       try {
         const response = await fetch('/chat', {
@@ -45,7 +48,7 @@ export default {
           body: JSON.stringify({ message })
         });
         const data = await response.json();
-        this.messages.push({ id: Date.now() + 1, text: data.reply, sender: "bot", avatar: 'path/to/bot/avatar.png' });
+        this.messages.push({ hora:date.getHours(),minutos:date.getMinutes(), text: message });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -56,9 +59,6 @@ export default {
 
 <style scoped>
 .chat-view {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
   background-color: var(--color-branco-claro);
 }
 
@@ -66,6 +66,7 @@ export default {
   cursor: pointer;
   color: var(--color-azul);
   padding: 5px;
+  display: flex;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -73,5 +74,20 @@ export default {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+.chat-container {
+    margin: 0 auto;  
+    max-width: 1200px;  
+    width: 60%;  
+    padding: 20px;
+    min-width: 320px;  
+    display: flex;
+    flex-direction: column;
+    border: 3px solid var(--color-preto);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;  
+    position: relative;  
 }
 </style>
