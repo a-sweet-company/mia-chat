@@ -1,21 +1,44 @@
 <template>
   <div class="message-list">
-    <div class="message" v-for="(message, index) in messages" :key="index">
-      <p>{{ message }}</p>
+    <div
+      class="message"
+      :class="{
+        'user-message': message.role === 'user',
+        'ia-message': message.role === 'ia',
+      }"
+      v-for="(message, index) in messages"
+      :key="index"
+    >
+      <p>{{ message.text }}</p>
+      <div class="timestamp-container">
+        <span class="timestamp">{{ message.hora }}:{{ message.minutos }}</span>
+        <img
+          v-if="message.role === 'ia'"
+          src="../assets/image 17.png"
+          alt="IA"
+          class="enviado-icon"
+        />
+        <img
+          v-if="message.role === 'user'"
+          src="../assets/read 1.png"
+          alt="USER"
+          class="enviado-icon"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'MessageList',
+  name: "MessageList",
   props: {
     messages: {
       type: Array,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -25,11 +48,50 @@ export default {
   height: calc(100vh - 150px);
   overflow-y: auto;
 }
+
 .message {
-  background-color: var(--color-branco);
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  border: 1px solid var(--color-cinza-claro);
+  max-width: 60%;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.user-message {
+  color: var(--color-branco);
+  background-color: var(--color-azul);
+  align-self: flex-start;
+  border: 1px solid var(--color-preto);
+  margin-left: auto;
+}
+
+.ia-message {
+  color: var(--color-branco);
+  background-color: var(--color-azul);
+  align-self: flex-end;
+  border: 1px solid var(--color-preto);
+  margin-right: auto;
+}
+.timestamp-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+}
+.timestamp {
+  font-size: 0.8em;
+  color: #999;
+  position: absolute;
+  margin-left: auto;
+  bottom: 0px;
+  right: 20px;
+  
+};
+.enviado-icon {
+  width: 5px;
+  height: 5px;
+  margin-left: 0px;
 }
 </style>

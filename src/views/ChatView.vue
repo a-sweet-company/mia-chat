@@ -2,10 +2,10 @@
   <div class="chat-view">
     <HeaderComponent />
     <div class="chat-container">
-    <IntroModal :showIntroModal="showIntroModal" @close-intro-modal="closeIntroModal" />
-    <MessageList :messages="messages" />
-    <MessageInput @send-message="sendMessage" />
-  </div>
+      <IntroModal :showIntroModal="showIntroModal" @close-intro-modal="closeIntroModal" />
+      <MessageList :messages="messages" />
+      <MessageInput @send-message="sendMessage" />
+    </div>
   </div>
 </template>
 
@@ -37,8 +37,8 @@ export default {
     },
     async sendMessage(message) {
       const date = new Date();
-      this.messages.push({ hora:date.getHours(),minutos:date.getMinutes(), text: message});
-      
+      this.messages.push({ hora: date.getHours(), minutos: date.getMinutes(), text: message, role: 'user' });
+
       try {
         const response = await fetch('/chat', {
           method: 'POST',
@@ -48,7 +48,7 @@ export default {
           body: JSON.stringify({ message })
         });
         const data = await response.json();
-        this.messages.push({ hora:date.getHours(),minutos:date.getMinutes(), text: message });
+        this.messages.push({ hora: date.getHours(), minutos: date.getMinutes(), text: data.reply, role: 'ia' });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -76,18 +76,18 @@ export default {
   opacity: 0;
 }
 .chat-container {
-    margin: 0 auto;  
-    max-width: 1200px;  
-    width: 60%;  
-    padding: 20px;
-    min-width: 320px;  
-    display: flex;
-    flex-direction: column;
-    border: 3px solid var(--color-preto);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    height: 80vh;  
-    position: relative;  
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 60%;
+  padding: 20px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--color-preto);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  position: relative;
 }
 </style>
