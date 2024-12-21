@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace GeminiController.Controllers
 {
@@ -10,18 +11,25 @@ namespace GeminiController.Controllers
     [Route("api/[controller]")]
     public class AIController : ControllerBase
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public AIController(HttpClient httpClient)
+        public AIController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         [HttpPost("sendMessage")]
         public async Task<IActionResult> SendMessage([FromBody] MessageRequest request)
         {
-            var apiKey = "AIzaSyBQQmhdqh36HqSdNduCzw8JNV6kTsYq3rA";
-            var apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBQQmhdqh36HqSdNduCzw8JNV6kTsYq3rA\"";
+            if (string.IsNullOrWhiteSpace(request?.Message))
+            {
+                return BadRequest(new { Error = "Message cannot be null or empty." });
+            }
+
+            var apiKey = _configuration["GoogleApi:ApiKey"];
+            var apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
             var payload = new
             {
@@ -30,22 +38,30 @@ namespace GeminiController.Controllers
                 max_tokens = 100
             };
 
-            var jsonPayload = JsonConvert.SerializeObject(payload);
-            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-
-            var response = await _httpClient.PostAsync(apiUrl, content);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var result = JsonConvert.DeserializeObject<MessageResponse>(responseContent);
-                return Ok(result);
+                var client = _httpClientFactory.CreateClient();
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{apiUrl}?key={apiKey}")
+                {
+                    Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json")
+                };
+
+                var response = await client.SendAsync(requestMessage);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = JsonSerializer.Deserialize<MessageResponse>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode((int)response.StatusCode, new { Error = responseContent });
+                }
             }
-            else
+            catch (HttpRequestException ex)
             {
-                return StatusCode((int)response.StatusCode, responseContent);
+                return StatusCode(500, new { Error = $"HTTP Request failed: {ex.Message}" });
             }
         }
     }

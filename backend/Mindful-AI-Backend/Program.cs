@@ -3,27 +3,17 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Serviços
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<AIController>();
-
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.AddServerHeader = false;
-    options.ListenLocalhost(7013, listenOptions =>
-    {
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
-        listenOptions.UseHttps();
-    });
-});
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<AuthService>(); 
+builder.Services.AddScoped<AuthService>();
 
+// Configuração de CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins", policy =>
@@ -34,24 +24,43 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Configuração do Kestrel
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.AddServerHeader = false;
+
+    // HTTP
+    options.ListenLocalhost(5000, listenOptions =>
+    {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
+    });
+
+    // HTTPS
+    options.ListenLocalhost(7013, listenOptions =>
+    {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
+        listenOptions.UseHttps();
+    });
+});
+
 var app = builder.Build();
 
-app.UseCors("AllowAll");
-Console.WriteLine("CORS configurado: AllowAll");
-app.UseCors("AllowFrontend");
+// Middleware
 app.UseCors("AllowSpecificOrigins");
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+    options.RoutePrefix = "";
+});
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-// Servir arquivos est�ticos (frontend)
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// Middleware para redirecionar para o index.html
+// Redirecionar para index.html se o arquivo não existir
 app.Use(async (context, next) =>
 {
     if (!context.Request.Path.Value.StartsWith("/api") &&
@@ -62,6 +71,7 @@ app.Use(async (context, next) =>
     await next();
 });
 
+// Mapear controllers
 app.MapControllers();
 
 app.Run();
