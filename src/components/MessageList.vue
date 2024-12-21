@@ -16,13 +16,17 @@
           v-if="message.role === 'ia'"
           src="../assets/image 17.png"
           alt="IA"
-          class="enviado-icon"
+          class="enviado-icon-ia" 
+          width="16px"
+          height="16px"
         />
         <img
           v-if="message.role === 'user'"
           src="../assets/read 1.png"
           alt="USER"
-          class="enviado-icon"
+          class="enviado-icon-user"
+          width="16px"
+          height="16px"
         />
       </div>
     </div>
@@ -86,12 +90,8 @@ export default {
   position: absolute;
   margin-left: auto;
   bottom: 0px;
-  right: 20px;
+  right: 25px;
   
 };
-.enviado-icon {
-  width: 5px;
-  height: 5px;
-  margin-left: 0px;
-}
+
 </style>
