@@ -86,7 +86,7 @@ export default {
 }
 .timestamp {
   font-size: 0.8em;
-  color: #999;
+  color: var(--color-branco);
   position: absolute;
   margin-left: auto;
   bottom: 0px;
