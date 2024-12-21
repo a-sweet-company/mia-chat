@@ -1,7 +1,11 @@
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Util.Store;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
@@ -23,6 +27,20 @@ namespace GeminiController.Controllers
         [HttpPost("sendMessage")]
         public async Task<IActionResult> SendMessage([FromBody] MessageRequest request)
         {
+            var clientSecrets = new ClientSecrets
+            {
+                ClientId = "653772676254-mli7gua85a4kfffmc3a12evrgit90hjn.apps.googleusercontent.com",
+                ClientSecret = "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"
+            };
+
+            var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                clientSecrets,
+                new[] { "https://www.googleapis.com/oauth2/v1/certs" },
+                "user",
+                CancellationToken.None,
+                new FileDataStore("TokenStore"));
+
+            var apiUrl = "https://api.gemini.com/v1/completions"; // Endpoint correto
             if (string.IsNullOrWhiteSpace(request?.Message))
             {
                 return BadRequest(new { Error = "Message cannot be null or empty." });

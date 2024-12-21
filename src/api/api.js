@@ -1,4 +1,3 @@
-// src/api/api.js
 import axios from 'axios';
 
 const apiClient = axios.create({
@@ -17,6 +16,13 @@ const auth = {
   },
 };
 
+const chat = {
+  sendMessage(message) {
+    return apiClient.post('/gemini/sendMessage', { message });
+  },
+};
+
 export default {
   auth,
+  chat,
 };
