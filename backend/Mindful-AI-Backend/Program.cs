@@ -52,7 +52,7 @@ app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-    options.RoutePrefix = "";
+    options.RoutePrefix = "swagger"; // Defina o prefixo da rota para "swagger"
 });
 
 app.UseHttpsRedirection();
