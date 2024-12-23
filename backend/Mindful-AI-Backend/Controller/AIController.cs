@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 namespace GeminiController.Controllers
 {
     [ApiController]
-    [Route("ai")]
+    [Route("api/gemini")]
     public class AIController : ControllerBase
     {
         private readonly IHttpClientFactory _httpClientFactory;

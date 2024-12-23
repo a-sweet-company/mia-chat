@@ -5,10 +5,11 @@
         type="text"
         placeholder="Mensagem"
         v-model="message"
-        @keyup.enter="sendMessage"
+        @keyup.enter="handleSendMessage"
         class="input-box"
+        :disabled="isLoading"
       />
-      <button @click="sendMessage" class="send-button">
+      <button @click="handleSendMessage" class="send-button" :disabled="isLoading">
         <img src="../assets/chat-input-button.png" alt="Enviar" class="send-icon" />
       </button>
     </div>
@@ -16,18 +17,51 @@
 </template>
 
 <script>
+import api from '@/api/api';
+
 export default {
   name: 'MessageInput',
   data() {
     return {
-      message: ''
+      message: '',
+      isLoading: false
     };
   },
   methods: {
-    sendMessage() {
-      if (this.message.trim()) {
-        this.$emit('send-message', this.message);
-        this.message = '';
+    async handleSendMessage() {
+      await this.sendMessage(this.message);
+    },
+    async sendMessage(text) {
+      if ((text || this.message.trim()) && !this.isLoading) {
+        try {
+          this.isLoading = true;
+          const messageText = text || this.message;
+          this.message = '';
+          
+          // Emitir mensagem para atualizar UI imediatamente
+          this.$emit('send-message', {
+            text: messageText,
+            role: 'user',
+            hora: new Date().getHours(),
+            minutos: new Date().getMinutes()
+          });
+
+          // Enviar para a API
+          const response = await api.chat.sendMessage(messageText);
+          
+          // Emitir resposta da IA
+          this.$emit('receive-message', {
+            text: response.text,
+            role: 'ia',
+            hora: new Date().getHours(),
+            minutos: new Date().getMinutes()
+          });
+        } catch (error) {
+          console.error('Erro ao enviar mensagem:', error);
+          this.$emit('error', 'Erro ao enviar mensagem. Por favor, tente novamente.');
+        } finally {
+          this.isLoading = false;
+        }
       }
     }
   }
@@ -49,12 +83,12 @@ export default {
 .input-container {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1); 
+  background: var(--color-branco); 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); 
   border-radius: 10px;
-  border: 1px solid black;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+  border: 1px solid var(--color-preto);
+  box-shadow: 0px 4px 10px var(--color-preto); 
   padding: 10px 15px;
   width: 80%;
   max-width: 600px;

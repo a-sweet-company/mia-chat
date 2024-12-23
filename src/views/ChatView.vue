@@ -19,7 +19,19 @@
           </div>
         </div>
       </transition>
-      <MessageInput @send-message="sendMessage" />
+      <MessageInput 
+        ref="messageInput"
+        @send-message="handleSendMessage" 
+        @receive-message="handleReceiveMessage"
+        @error="handleError"
+      />
+      
+      <!-- Mensagem de erro -->
+      <transition name="fade">
+        <div v-if="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -46,45 +58,35 @@ export default {
         "Me conte uma curiosidade interessante.",
         "Você pode me ajudar com uma receita fácil?",
       ],
+      showSuggestions: false,
+      errorMessage: null
     };
   },
   methods: {
     closeIntroModal() {
       this.showIntroModal = false;
-     this.showSuggestions= true;
+      this.showSuggestions = true;
     },
-    addPrompt(prompt) {
-      this.$emit("fillInput", prompt);
+    handleSendMessage(message) {
+      this.messages.push(message);
+      // Esconde as sugestões quando uma mensagem é enviada
+      this.showSuggestions = false;
     },
-    async sendMessage(message) {
-      const date = new Date();
-      this.messages.push({
-        hora: date.getHours(),
-        minutos: date.getMinutes(),
-        text: message,
-        role: "user",
-      });
-
-      try {
-        const response = await fetch("/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ message }),
-        });
-        const data = await response.json();
-        this.messages.push({
-          hora: date.getHours(),
-          minutos: date.getMinutes(),
-          text: data.reply,
-          role: "ia",
-        });
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    },selectSuggestion(suggestion) { this.sendMessage(suggestion); this.showSuggestions = false; }
-  },
+    handleReceiveMessage(message) {
+      this.messages.push(message);
+    },
+    handleError(error) {
+      this.errorMessage = error;
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 5000);
+    },
+    async selectSuggestion(suggestion) {
+      // Simula o envio direto da mensagem
+      await this.$refs.messageInput.sendMessage(suggestion);
+      this.showSuggestions = false;
+    }
+  }
 };
 </script>
 

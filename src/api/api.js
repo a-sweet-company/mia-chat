@@ -18,8 +18,15 @@ const auth = {
 
 const chat = {
   sendMessage(message) {
-    return apiClient.post('/gemini/sendMessage', { message });
+    return apiClient.post('/gemini/sendMessage', { message })
+      .then(response => {
+        return response.data;
+      });
   },
+  // Método para obter histórico de mensagens (opcional)
+  getHistory() {
+    return apiClient.get('/gemini/history');
+  }
 };
 
 export default {
