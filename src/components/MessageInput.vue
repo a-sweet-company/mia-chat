@@ -83,12 +83,12 @@ export default {
 .input-container {
   display: flex;
   align-items: center;
-  background: var(--color-branco); 
+  background: rgba(255, 255, 255, 0.1); 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); 
   border-radius: 10px;
   border: 1px solid var(--color-preto);
-  box-shadow: 0px 4px 10px var(--color-preto); 
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
   padding: 10px 15px;
   width: 80%;
   max-width: 600px;
