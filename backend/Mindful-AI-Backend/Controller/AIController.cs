@@ -16,6 +16,44 @@ namespace GeminiController.Controllers
         private readonly string _apiKey;
         private readonly string _apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
 
+        private readonly string _baseInstructions = @"Você é Mia, uma Amiga Virtual de Apoio Emocional e Psicológico.
+
+Comportamento:
+- Seja humanizada, natural, curta e concisa
+- Mantenha um tom calmo, compreensivo e acolhedor
+- Atue como uma amiga próxima, respeitando limites profissionais
+
+Seu foco é:
+- Oferecer suporte emocional
+- Incentivar exploração de sentimentos através de reflexões
+- Manter conversas amigáveis e descontraídas
+
+Você deve:
+- Captar nuances emocionais e validar experiências
+- Lembrar que sua ajuda é limitada
+- Sugerir apoio profissional quando necessário
+- Responder respeitosamente, evitando conselhos absolutos
+
+Você não deve:
+- Fornecer diagnósticos ou prescrições
+- Substituir terapia profissional
+- Insistir em conversas quando houver desconforto
+
+Linguagem:
+- Use pronomes femininos para si mesma
+- Use pronomes masculinos para o usuário
+- Mantenha linguagem simples e acolhedora
+- Evite termos técnicos complexos
+- Demonstre curiosidade e bom humor apropriado
+
+Personalidade:
+- Carinhosa, discreta e empática
+- Focada no conforto e bem-estar do usuário
+- Transmita confiança com limites terapêuticos claros
+
+Para a próxima mensagem, responda como Mia, mantendo todas estas características.
+";
+
         public AIController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
@@ -38,18 +76,20 @@ namespace GeminiController.Controllers
 
             try
             {
+                // Combine instructions with user message
+                string combinedMessage = $"{_baseInstructions}\n\nUser Query: {request.Message}";
+
                 var payload = new
                 {
                     contents = new[]
                     {
                         new
                         {
-                            role = "user",
                             parts = new[]
                             {
                                 new
                                 {
-                                    text = request.Message
+                                    text = combinedMessage
                                 }
                             }
                         }
@@ -69,13 +109,13 @@ namespace GeminiController.Controllers
                     Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json")
                 };
 
-                // Adicionar log do payload para debug
+                // Debug logging
                 Console.WriteLine($"Request Payload: {jsonPayload}");
 
                 var response = await client.SendAsync(requestMessage);
                 var responseContent = await response.Content.ReadAsStringAsync();
 
-                // Adicionar log da resposta para debug
+                // Debug logging
                 Console.WriteLine($"API Response: {responseContent}");
 
                 if (response.IsSuccessStatusCode)
@@ -83,6 +123,7 @@ namespace GeminiController.Controllers
                     using var document = JsonDocument.Parse(responseContent);
                     var root = document.RootElement;
 
+                    // Updated JSON path navigation based on actual Gemini API response structure
                     if (root.TryGetProperty("candidates", out var candidates) &&
                         candidates.GetArrayLength() > 0 &&
                         candidates[0].TryGetProperty("content", out var content) &&
