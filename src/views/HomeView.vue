@@ -10,7 +10,7 @@
       </div>
       <div class="slogan">
         <h2>
-          Cuide da mente, <span class="highlight">converse com Mia.</span>
+          Fale com quem entende você, sempre.
         </h2>
       </div>
       <div class="subtitulo">
@@ -341,7 +341,8 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: -3%;
+  margin-top: 5%;
+  margin-bottom: -5%;
 }
 
 .logo img {
@@ -350,7 +351,7 @@ body {
 
 .slogan {
   text-align: center;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
 }
 
 .slogan h2 {
@@ -359,7 +360,7 @@ body {
 }
 
 .subtitulo {
-  font-size: 1vw;
+  font-size: 1.1vw;
   text-align: center;
   line-height: 1.5;
   width: 38vw;
@@ -414,7 +415,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: var(--color-azul);
+  background-color: var(--color-azul-escuro);
   transition: background-color 0.3s ease;
 }
 
@@ -486,7 +487,7 @@ button[type="submit"]:hover {
   border: 1px solid var(--color-marmore-modal);
   border-radius: 8px;
   padding: 16px 24px;
-  box-shadow: 0 2px 8px var(--color-preto);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   display: flex;
   align-items: center;

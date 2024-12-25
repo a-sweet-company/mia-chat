@@ -25,8 +25,6 @@
         @receive-message="handleReceiveMessage"
         @error="handleError"
       />
-      
-      <!-- Mensagem de erro -->
       <transition name="fade">
         <div v-if="errorMessage" class="error-message">
           {{ errorMessage }}
@@ -129,8 +127,9 @@ export default {
 }
 .chat-container {
   margin: 0 auto;
-  max-width: 1200px;
-  width: 60%;
+  margin-top: 8px;
+  width: 70%;
+  height: 85vh;
   padding: 20px;
   min-width: 320px;
   display: flex;
@@ -139,7 +138,6 @@ export default {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  height: 80vh;
   position: relative;
 }
 </style>

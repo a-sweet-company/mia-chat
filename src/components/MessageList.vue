@@ -74,20 +74,20 @@ export default {
   height: calc(100vh - 150px);
   overflow-y: auto;
   display: flex;
-  flex-direction: column; /* Garante que as mensagens sejam empilhadas */
-  align-items: flex-start; /* Alinha mensagens no início */
+  flex-direction: column; 
+  align-items: flex-start; 
 }
 
 .message {
-  display: block; /* Corrige o layout para evitar lado a lado */
+  display: block; 
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  max-width: 60%;
-  min-width: 50px; /* Largura mínima do balão */
   position: relative;
   word-wrap: break-word;
-  padding-bottom: 23px; /* Cria espaço para o horário */
+  padding-bottom: 23px; 
+  max-width: 70%;
+  min-width: 60px; 
 }
 
 .user-message {
@@ -96,8 +96,8 @@ export default {
   border-radius: 10px;
   align-self: flex-start;
   margin-left: auto;
-  min-width: 50px; /* Largura mínima do balão */
-  max-width: 60%; /* Largura máxima do balão */
+  max-width: 70%; 
+  min-width: 60px; 
 }
 
 .ia-message {
@@ -107,8 +107,8 @@ export default {
   border: 2px solid var(--color-preto);
   border-radius: 10px;
   margin-right: auto;
-  min-width: 50px; /* Largura mínima do balão */
-  max-width: 60%; /* Largura máxima do balão */
+  max-width: 70%;
+  min-width: 60px; 
 }
 
 .markdown-content {
@@ -131,7 +131,7 @@ export default {
 }
 
 .ia-timestamp {
-  color: var(--color-preto); /* Cor preta para horários da IA */
+  color: var(--color-preto); 
 }
 
 .enviado-icon-ia,

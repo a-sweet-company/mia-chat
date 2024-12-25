@@ -11,6 +11,7 @@
     padding: 0;
     overflow-x: hidden;
     font-family: 'Jost', sans-serif; 
+    background-color: var(--color-branco-claro);
   }
   :root {
     --color-preto : #000000;
@@ -29,7 +30,7 @@
   .jost-unique {
     font-family: "Jost", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400; /* Ajuste o peso conforme necessário */
+    font-weight: 400; 
     font-style: normal;
   }
  
