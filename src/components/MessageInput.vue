@@ -83,7 +83,7 @@ export default {
 .input-container {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1); 
+  background: rgba(230, 230, 230, 0.1); 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); 
   border-radius: 10px;

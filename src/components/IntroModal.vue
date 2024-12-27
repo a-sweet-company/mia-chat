@@ -1,18 +1,23 @@
 <template>
   <transition name="fade">
-    <div v-if="showIntroModal" class="intro-modal">
+    <div v-if="showIntroModal || errorMessage" class="intro-modal" @click.self="closeIntroModal">
       <span class="close" @click="closeIntroModal">&times;</span>
       <div class="modal-content">
-        <img src="../assets/Mia-Modal.png" alt="Mia-Modal" class="modal-image">
+        <img v-if="!errorMessage" src="../assets/Mia-Modal.png" alt="Mia-Modal" class="modal-image">
         <div class="modal-text">
-          <h1 class="modal-greeting"><strong>Olá,</strong></h1>
+          <h1 class="modal-greeting"><strong v-if="!errorMessage">Olá,</strong></h1>
           <p class="modal-description">
-            Sou a <strong>Mia</strong>, sua assistente de apoio emocional e psicológico.
-            Estou pronta para te ouvir e te ajudar. Vamos começar?
+            <template v-if="errorMessage">
+              {{ errorMessage }}
+            </template>
+            <template v-else>
+              Sou a <strong>Mia</strong>, sua assistente de apoio emocional e psicológico.
+              Estou pronta para te ouvir e te ajudar. Vamos começar?
+            </template>
           </p>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" v-if="!errorMessage">
         <button class="btn-primary" @click="closeIntroModal">Claro!</button>
       </div>
     </div>
@@ -22,11 +27,9 @@
 <script>
 export default {
   props: {
-    showIntroModal: {
-      type: Boolean,
-      required: true
-    }
-  },
+    showIntroModal: Boolean,
+    errorMessage: String,
+  },  
   methods: {
     closeIntroModal() {
       this.$emit("close-intro-modal");
@@ -38,7 +41,7 @@ export default {
 <style scoped>
 .intro-modal {
   position: fixed;
-  top: 50%;
+  top: 53%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: none;

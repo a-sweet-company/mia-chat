@@ -3,8 +3,7 @@
     <h1>404 - Página Não Encontrada</h1>
     <p>Ops! Parece que a página que você está procurando não existe.</p>
     <router-link to="/">Voltar para a Página Inicial</router-link>
-    <router-link to="/chat">Ir para o Chat</router-link> //essa linha foi feita apenas para testes
-                                                        // apagar na versão final
+    <router-link to="/chat">Ir para o Chat</router-link>                                               
   </div>
 </template>
 
@@ -40,5 +39,7 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: var(--color-preto);
+  transition: color 0.3s ease;
 }
 </style>
