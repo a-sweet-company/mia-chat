@@ -3,7 +3,10 @@
     <HeaderComponent />
     <div class="chat-container">
       <ChatStatusComponent :status="miaStatus" />
-      <IntroModal :showIntroModal="showIntroModal" @close-intro-modal="closeIntroModal" />
+      <IntroModal
+        :showIntroModal="showIntroModal"
+        @close-intro-modal="closeIntroModal"
+      />
       <transition name="fade">
         <div v-if="showWelcomeMessage" class="welcome-message">
           Olá, como posso te ajudar?
@@ -12,14 +15,23 @@
       <MessageList :messages="messages" />
       <transition name="fade">
         <div class="suggestions-container" v-if="showSuggestions">
-          <div class="suggestion" v-for="(suggestion, index) in suggestions" :key="index"
-            @click="selectSuggestion(suggestion)">
+          <div
+            class="suggestion"
+            v-for="(suggestion, index) in suggestions"
+            :key="index"
+            @click="selectSuggestion(suggestion)"
+          >
             {{ suggestion }}
           </div>
         </div>
       </transition>
-      <MessageInput v-if="showInput" ref="messageInput" @send-message="handleSendMessage" @receive-message="handleReceiveMessage"
-        @error="handleError" />
+      <MessageInput
+        v-if="showInput"
+        ref="messageInput"
+        @send-message="handleSendMessage"
+        @receive-message="handleReceiveMessage"
+        @error="handleError"
+      />
       <transition name="fade">
         <div v-if="errorMessage" class="error-message">
           {{ errorMessage }}
@@ -28,6 +40,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import MessageList from "@/components/MessageList.vue";
@@ -149,6 +162,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+  backdrop-filter: blur(0);
 }
 
 .welcome-message {

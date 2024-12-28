@@ -86,8 +86,8 @@ export default {
   background: rgba(230, 230, 230, 0.1); 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); 
-  border-radius: 10px;
-  border: 1px solid var(--color-preto);
+  border-radius: 15px;
+  border: 2px solid var(--color-preto);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
   padding: 10px 15px;
   width: 80%;

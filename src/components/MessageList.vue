@@ -111,6 +111,19 @@ export default {
   min-width: 60px; 
 }
 
+.message-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.message-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-cinza);
+  border-radius: 5px;
+}
+
+.message-list::-webkit-scrollbar-track {
+  background: var(--color-branco-claro);
+} 
+
 .markdown-content {
   color: var(--color-preto);
   background-color: none;
