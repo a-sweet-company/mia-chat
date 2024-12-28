@@ -32,11 +32,6 @@
         @receive-message="handleReceiveMessage"
         @error="handleError"
       />
-      <transition name="fade">
-        <div v-if="errorMessage" class="error-message">
-          {{ errorMessage }}
-        </div>
-      </transition>
     </div>
   </div>
 </template>
@@ -121,6 +116,7 @@ export default {
 .suggestions-container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10%;
 }
 
 .suggestion {
@@ -170,7 +166,7 @@ export default {
   padding: 10px;
   text-align: center;
   border-radius: 5px;
-  margin-top: 9%;
+  margin-top: 4%;
   font-size: 1.6rem;
   animation: fadeIn 1s;
   animation-timing-function: ease-in-out;

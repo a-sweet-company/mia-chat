@@ -1,17 +1,17 @@
 <template>
-  <div class="chat-status">
-    <img src="../assets/Mia-Modal.png" alt="Mia" class="status-icon" />
-    <div class="status-text">
-      <h2 class="name">Mia</h2>
-      <p class="status">{{ currentStatus }}</p>
+    <div class="chat-status-container">
+      <img src="../assets/Mia-Modal.png" alt="Mia" class="chat-status-icon" />
+      <div class="chat-status-text">
+        <h2 class="chat-status-name">Mia</h2>
+        <p class="chat-status-indicator">{{ currentStatus }}</p>
+      </div>
+      <div class="chat-status-dots">
+        <span :class="{ active: activeDot === 1 }"></span>
+        <span :class="{ active: activeDot === 2 }"></span>
+        <span :class="{ active: activeDot === 3 }"></span>
+      </div>
     </div>
-    <div class="dots">
-      <span :class="{ active: activeDot === 1 }"></span>
-      <span :class="{ active: activeDot === 2 }"></span>
-      <span :class="{ active: activeDot === 3 }"></span>
-    </div>
-  </div>
-</template>
+</template>  
 
 <script>
 export default {
@@ -46,54 +46,58 @@ export default {
 </script>
 
 <style scoped>
-.chat-status {
+.chat-status-container {
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.089); /* Fundo semi-transparente */
-  backdrop-filter: blur(10px); /* Efeito de blur */
-  -webkit-backdrop-filter: blur(10px); /* Compatibilidade com Safari */
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
   position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sutil sombra para destaque */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Maior sombra para destacar */
 }
 
-.status-icon {
+.chat-status-icon {
   width: 60px;
   margin-right: 15px;
+  object-fit: cover; /* Caso precise ajustar imagens */
 }
 
-.status-text {
+.chat-status-text {
   flex-grow: 1;
 }
 
-.name {
-  font-size: 1.2rem;
+.chat-status-name {
+  font-size: 1.3rem;
   margin: 0;
   font-weight: bold;
 }
 
-.status {
-  font-size: 0.9rem;
+.chat-status-indicator {
+  font-size: 0.8rem;
   color: var(--color-preto);
   margin: 0;
 }
 
-.dots {
+.chat-status-dots {
   display: flex;
   gap: 5px;
 }
 
-.dots span {
+.chat-status-dots span {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background-color: var(--color-azul);
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Suavidade */
 }
 
-.dots span.active {
+.chat-status-dots span.active {
   background-color: var(--color-cinza);
+  transform: scale(1.2); /* Destaque no ponto ativo */
 }
 </style>
+
