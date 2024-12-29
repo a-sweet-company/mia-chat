@@ -69,14 +69,16 @@ export default {
 
 <style scoped>
 .message-list {
-  flex: 1; /* Permite que o componente ocupe o espaço restante */
-  overflow-y: auto; /* Ativa a rolagem somente no eixo Y */
-  padding: 10px;
+  flex: 1; /* Ocupa o espaço restante do container */
+  overflow-y: auto; /* Habilita a rolagem no eixo Y */
+  padding-top: 70px; /* Espaço para as mensagens respeitarem o topo */
+  padding-bottom: 60px; /* Espaço para respeitar o fundo */
+  margin-top: -40px; /* Reduz o limite efetivo no topo durante a rolagem */
+  margin-bottom: -7px; /* Reduz o limite no fundo durante a rolagem */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px; /* Espaçamento entre mensagens */
-  margin-top: 20px; /* Deixa espaço para o ChatStatus */
 }
 
 .message {

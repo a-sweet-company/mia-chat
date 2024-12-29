@@ -2,8 +2,14 @@
   <div class="chat-view">
     <HeaderComponent />
     <div class="chat-container">
-      <ChatStatusComponent :status="miaStatus" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10;" />
-      <MessageList :messages="messages" style="margin-top: 60px; margin-bottom: 60px;" />
+      <ChatStatusComponent 
+    :status="miaStatus" 
+    style="position: absolute; top: 0; left: 0; right: 0; z-index: 10;" 
+  />
+  <MessageList 
+    :messages="messages" 
+    style="padding-top: 60px; padding-bottom: 60px;" 
+  />
       <IntroModal
         :showIntroModal="showIntroModal"
         @close-intro-modal="closeIntroModal"
@@ -153,6 +159,7 @@ export default {
   width: 70%;
   height: 85vh;
   padding: 20px;
+  padding-top: 73px; /* Espaço para o ChatStatus */
   position: relative;
   min-width: 320px;
   display: flex;
