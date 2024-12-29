@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mindful_AI_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241229190538_FixMessageEntity")]
+    partial class FixMessageEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -22,14 +25,21 @@ namespace Mindful_AI_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ChatHistory");
+                    b.ToTable("ChatHistories");
                 });
 
             modelBuilder.Entity("Mindful_AI_Backend.Models.Ai", b =>
@@ -57,9 +67,6 @@ namespace Mindful_AI_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ChatHistoryId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasMaxLength(13)
@@ -73,8 +80,6 @@ namespace Mindful_AI_Backend.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("messageId");
-
-                    b.HasIndex("ChatHistoryId");
 
                     b.ToTable("Message");
 
@@ -102,20 +107,6 @@ namespace Mindful_AI_Backend.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Mindful_AI_Backend.Models.MessageAi", b =>
-                {
-                    b.HasBaseType("Mindful_AI_Backend.Models.Message");
-
-                    b.Property<int>("aiId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasIndex("aiId");
-
-                    b.ToTable("Message");
-
-                    b.HasDiscriminator().HasValue("MessageAi");
-                });
-
             modelBuilder.Entity("Mindful_AI_Backend.Models.MessageUser", b =>
                 {
                     b.HasBaseType("Mindful_AI_Backend.Models.Message");
@@ -132,27 +123,13 @@ namespace Mindful_AI_Backend.Migrations
 
             modelBuilder.Entity("ChatHistory", b =>
                 {
-                    b.HasOne("User", null)
+                    b.HasOne("User", "User")
                         .WithMany("ChatHistories")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Mindful_AI_Backend.Models.Message", b =>
-                {
-                    b.HasOne("ChatHistory", null)
-                        .WithMany("Message")
-                        .HasForeignKey("ChatHistoryId");
-                });
-
-            modelBuilder.Entity("Mindful_AI_Backend.Models.MessageAi", b =>
-                {
-                    b.HasOne("Mindful_AI_Backend.Models.Ai", "ai")
-                        .WithMany()
-                        .HasForeignKey("aiId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ai");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Mindful_AI_Backend.Models.MessageUser", b =>
@@ -164,11 +141,6 @@ namespace Mindful_AI_Backend.Migrations
                         .IsRequired();
 
                     b.Navigation("user");
-                });
-
-            modelBuilder.Entity("ChatHistory", b =>
-                {
-                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("User", b =>

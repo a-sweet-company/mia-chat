@@ -9,6 +9,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@google/generative-ai": "^0.21.0",
+    "axios": "^1.7.9",
     "business-card-project": "file:",
     "core-js": "^3.8.3",
     "marked": "^15.0.4",
