@@ -50,20 +50,20 @@ export default {
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.2); 
-  backdrop-filter: blur(10px); 
+  background: rgba(255, 255, 255, 0.2) !important; 
+  backdrop-filter: blur(10px) !important; 
   -webkit-backdrop-filter: blur(10px); 
   position: sticky;
   top: 0;
-  width: 100%;
+  width: 100%; 
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Maior sombra para destacar */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .chat-status-icon {
   width: 60px;
   margin-right: 15px;
-  object-fit: cover; /* Caso precise ajustar imagens */
+  object-fit: cover;
 }
 
 .chat-status-text {
@@ -92,12 +92,12 @@ export default {
   height: 8px;
   border-radius: 50%;
   background-color: var(--color-azul);
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Suavidade */
+  transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
 .chat-status-dots span.active {
   background-color: var(--color-cinza);
-  transform: scale(1.2); /* Destaque no ponto ativo */
+  transform: scale(1.2);
 }
 </style>
 

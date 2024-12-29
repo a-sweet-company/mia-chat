@@ -2,7 +2,8 @@
   <div class="chat-view">
     <HeaderComponent />
     <div class="chat-container">
-      <ChatStatusComponent :status="miaStatus" />
+      <ChatStatusComponent :status="miaStatus" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10;" />
+      <MessageList :messages="messages" style="margin-top: 60px; margin-bottom: 60px;" />
       <IntroModal
         :showIntroModal="showIntroModal"
         @close-intro-modal="closeIntroModal"
@@ -12,7 +13,11 @@
           Olá, como posso te ajudar?
         </div>
       </transition>
-      <MessageList :messages="messages" />
+      <transition name="fade">
+        <div class="error-message" v-if="errorMessage">
+          {{ errorMessage }}
+        </div>
+      </transition>
       <transition name="fade">
         <div class="suggestions-container" v-if="showSuggestions">
           <div
@@ -148,17 +153,15 @@ export default {
   width: 70%;
   height: 85vh;
   padding: 20px;
-  overflow-y: auto;
   position: relative;
   min-width: 320px;
   display: flex;
   flex-direction: column;
   border: 3px solid var(--color-preto);
   border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  backdrop-filter: blur(0);
+  background-color: var(--color-branco-claro);
+  backdrop-filter: blur(10px);
+  overflow: hidden; /* Garante que nada saia do container */
 }
 
 .welcome-message {
