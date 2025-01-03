@@ -6,13 +6,14 @@
         :key="option.name"
         :to="option.path"
         :class="{ active: activeOption === option.name }"
-        @click="setActive(option.name)"
       >
         {{ option.name }}
       </router-link>
+      <button @click="logout">Logout</button>
     </nav>
   </header>
 </template>
+
 
 <script>
 export default {
@@ -20,9 +21,8 @@ export default {
     return {
       options: [
         { name: 'CHAT', path: '/chat' },
-        { name: 'SOBRE', path: '/sobre' },
-        { name: 'HOME', path: '/' },
-        { name: 'PERFIL', path: '/perfil' },
+        { name: 'SOBRE', path: '/about' },
+        { name: 'PERFIL', path: '/perfil' }, 
       ],
       activeOption: 'CHAT',
     };
@@ -30,6 +30,11 @@ export default {
   methods: {
     setActive(option) {
       this.activeOption = option;
+    },
+    logout() {
+      sessionStorage.removeItem('isAuthenticated'); // Remove a autenticação
+      this.$router.push('/'); // Redireciona para a página inicial
+      console.log('Logout realizado com sucesso!');
     },
   },
 };
@@ -70,7 +75,22 @@ export default {
   color: var(--color-branco);
   border-color: var(--color-cinza);
 }
-
+.header nav button {
+  text-decoration: none;
+  color: var(--color-cinza);
+  padding: 4px 60px;
+  border: 1px solid var(--color-preto);
+  background-color: none;
+  border-radius: 6px; 
+  transition: all 0.3s ease;
+  font-size: 1.0rem;
+ 
+}
+.header nav button:hover {
+  background-color: var(--color-vermelho-erro);
+  color: var(--color-branco);
+  border-color: var(--color-vermelho-erro);
+}
 @media (max-width: 768px) {
   .header nav {
     gap: 10px;
