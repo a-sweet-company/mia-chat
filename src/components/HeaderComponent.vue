@@ -87,9 +87,9 @@ export default {
  
 }
 .header nav button:hover {
-  background-color: var(--color-vermelho-erro);
+  background-color: var(--color-preto);
   color: var(--color-branco);
-  border-color: var(--color-vermelho-erro);
+  border-color: var(--color-preto);
 }
 @media (max-width: 768px) {
   .header nav {
