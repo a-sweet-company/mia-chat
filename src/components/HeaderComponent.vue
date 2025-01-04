@@ -6,6 +6,7 @@
         :key="option.name"
         :to="option.path"
         :class="{ active: activeOption === option.name }"
+        @click="setActive(option.name, option.path)"
       >
         {{ option.name }}
       </router-link>
@@ -13,7 +14,6 @@
     </nav>
   </header>
 </template>
-
 
 <script>
 export default {
@@ -28,12 +28,18 @@ export default {
     };
   },
   methods: {
-    setActive(option) {
+    setActive(option, path) {
       this.activeOption = option;
+      if (sessionStorage.getItem('isAuthenticated')) {
+        sessionStorage.setItem('selectedRoute', path);
+      }
     },
     logout() {
-      sessionStorage.removeItem('isAuthenticated'); // Remove a autenticação
-      this.$router.push('/'); // Redireciona para a página inicial
+      // First clear all relevant session storage
+      sessionStorage.clear(); // This removes both isAuthenticated and selectedRoute
+      
+      // Then redirect to loading
+      this.$router.push('/loading');
       console.log('Logout realizado com sucesso!');
     },
   },

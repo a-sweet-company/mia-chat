@@ -4,17 +4,25 @@
       <p class="loading-text">Carregando...</p>
     </div>
   </template>
-  
-  <script>
-  export default {
-    mounted() {
-      // Redireciona automaticamente para o Chat após 3 segundos
-      setTimeout(() => {
-        this.$router.push('/chat');
-      }, 3000);
-    },
-  };
-  </script>
+
+<script>
+export default {
+  mounted() {
+    setTimeout(() => {
+      const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+      
+      // After logout, redirect to login page
+      if (!isAuthenticated) {
+        this.$router.push('/');
+      } else {
+        // If authenticated, go to their intended destination
+        const targetPath = sessionStorage.getItem('selectedRoute') || '/chat';
+        this.$router.push(targetPath);
+      }
+    }, 3000);
+  }
+};
+</script>
   
   <style scoped>
   .loading-container {
