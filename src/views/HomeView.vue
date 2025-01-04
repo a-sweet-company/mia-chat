@@ -264,7 +264,7 @@ export default {
         
         // Navigate to chat after successful login
         setTimeout(() => {
-          this.$router.push("/chat");
+          this.$router.push("/loading");
         }, 1000);
       } catch (error) {
         if (error.response && error.response.status === 400) {
