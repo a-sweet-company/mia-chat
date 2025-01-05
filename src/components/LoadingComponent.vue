@@ -1,48 +1,74 @@
 <template>
-    <div class="loading-container">
-      <img src="@/assets/tohru.gif" alt="Carregando..." class="tohru-gif" />
-      <p class="loading-text">Carregando...</p>
+  <div class="loading-overlay" v-if="show">
+    <div class="loading-content">
+      <transition name="fade" mode="out-in">
+        <h2 :key="currentMessage">{{ currentMessage }}</h2>
+      </transition>
     </div>
-  </template>
+  </div>
+</template>
 
 <script>
 export default {
-  mounted() {
-    setTimeout(() => {
-      const isAuthenticated = sessionStorage.getItem('isAuthenticated');
-      
-      // After logout, redirect to login page
-      if (!isAuthenticated) {
-        this.$router.push('/');
-      } else {
-        // If authenticated, go to their intended destination
-        const targetPath = sessionStorage.getItem('selectedRoute') || '/chat';
-        this.$router.push(targetPath);
+  name: 'LoadingComponent',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      currentMessage: 'Carregando...',
+      messages: [
+        'Carregando...',
+        'Login Efetuado com Sucesso!',
+      ]
+    }
+  },
+  watch: {
+    show(newVal) {
+      if (newVal) {
+        this.startMessageSequence();
       }
-    }, 3000);
+    }
+  },
+  methods: {
+    startMessageSequence() {
+      setTimeout(() => {
+        this.currentMessage = this.messages[1];
+      }, 2000);
+    }
   }
-};
+}
 </script>
-  
-  <style scoped>
-  .loading-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: var(--color-branco-claro);
-  }
-  
-  .loading-gif {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .loading-text {
-    font-size: 1.5rem;
-    color: var(--color-preto);
-    margin-top: 20px;
-  }
-  </style>
-  
+
+<style scoped>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color:var(--color-branco);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: progress;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

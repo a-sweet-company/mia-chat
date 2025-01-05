@@ -39,7 +39,7 @@ export default {
       sessionStorage.clear(); // This removes both isAuthenticated and selectedRoute
       
       // Then redirect to loading
-      this.$router.push('/loading');
+      this.$router.push('/');
       console.log('Logout realizado com sucesso!');
     },
   },

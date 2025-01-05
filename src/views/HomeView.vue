@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <LoadingComponent :show="isLoading" />
     <!-- Lado esquerdo: Formulário de login/cadastro -->
     <div class="left-section">
       <div class="logo">
@@ -117,11 +118,16 @@
 
 <script>
 import api from "@/api/api";
+import LoadingComponent from "@/components/LoadingComponent.vue";
 
 export default {
   name: 'Login',
+  components: {
+    LoadingComponent
+  },
   data() {
     return {
+      isLoading: false,
       isSignUp: false,
       email: "",
       password: "",
@@ -249,6 +255,7 @@ export default {
     },
     async loginUser() {
       try {
+        this.isLoading = true; // Show loading overlay
         const response = await api.auth.login(this.email, this.password);
         
         // Store authentication state
@@ -264,9 +271,10 @@ export default {
         
         // Navigate to chat after successful login
         setTimeout(() => {
-          this.$router.push("/loading");
-        }, 1000);
+          this.$router.push("/chat");
+        }, 3000);
       } catch (error) {
+        this.isLoading = false; // Hide loading on error
         if (error.response && error.response.status === 400) {
           this.showModal("Credenciais inválidas. Tente novamente.", "error");
         } else {
@@ -275,6 +283,7 @@ export default {
         console.error("Erro no login:", error.response?.data || error.message);
       }
     },
+
     handleError(error) {
       if (error.response) {
         const serverMessage =

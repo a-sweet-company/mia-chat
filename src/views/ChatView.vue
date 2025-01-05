@@ -159,6 +159,8 @@ export default {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  color: var(--color-azul);
+  text-align: center;
 }
 
 .suggestion:hover {
