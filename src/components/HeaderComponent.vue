@@ -10,7 +10,9 @@
       >
         {{ option.name }}
       </router-link>
-      <button @click="logout">Logout</button>
+      <button @click="logout" :disabled="isLoggingOut">
+        {{ isLoggingOut ? 'Saindo...' : 'LOGOUT' }}
+      </button>
     </nav>
   </header>
 </template>
@@ -25,6 +27,7 @@ export default {
         { name: 'PERFIL', path: '/perfil' }, 
       ],
       activeOption: 'CHAT',
+      isLoggingOut: false,
     };
   },
   methods: {
@@ -35,12 +38,19 @@ export default {
       }
     },
     logout() {
-      // First clear all relevant session storage
-      sessionStorage.clear(); // This removes both isAuthenticated and selectedRoute
+      this.isLoggingOut = true;
       
-      // Then redirect to loading
-      this.$router.push('/');
-      console.log('Logout realizado com sucesso!');
+      setTimeout(() => {
+        // Clear all relevant session storage
+        sessionStorage.clear();
+        
+        // Reset the loading state
+        this.isLoggingOut = false;
+        
+        // Then redirect to loading
+        this.$router.push('/');
+        console.log('Logout realizado com sucesso!');
+      }, 2000);
     },
   },
 };
@@ -93,9 +103,9 @@ export default {
  
 }
 .header nav button:hover {
-  background-color: var(--color-preto);
+  background-color: var(--color-azul);
   color: var(--color-branco);
-  border-color: var(--color-preto);
+  border-color: var(--color-azul);
 }
 @media (max-width: 768px) {
   .header nav {
