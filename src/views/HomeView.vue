@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <LoadingComponent :show="isLoading" />
     <!-- Lado esquerdo: Formulário de login/cadastro -->
     <div class="left-section">
       <div class="logo">
@@ -117,10 +118,16 @@
 
 <script>
 import api from "@/api/api";
+import LoadingComponent from "@/components/LoadingComponent.vue";
 
 export default {
+  name: 'Login',
+  components: {
+    LoadingComponent
+  },
   data() {
     return {
+      isLoading: false,
       isSignUp: false,
       email: "",
       password: "",
@@ -136,6 +143,12 @@ export default {
         type: "error",
       },
     };
+  },
+  created() {
+    const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+    if (isAuthenticated === 'true') {
+      //this.$router.push('/chat');
+    }
   },
   methods: {
     toggleSignUp() {
@@ -156,7 +169,6 @@ export default {
       this.modal.type = type;
       this.modal.show = true;
 
-      // Auto fechar o modal após 5 segundos
       setTimeout(() => {
         this.hideModal();
       }, 5000);
@@ -183,7 +195,6 @@ export default {
         console.error("Erro ao validar domínio:", error);
         return false;
       }
-      return false;
     },
     async validateForm() {
       this.clearInputErrors();
@@ -244,14 +255,26 @@ export default {
     },
     async loginUser() {
       try {
+        this.isLoading = true; // Show loading overlay
         const response = await api.auth.login(this.email, this.password);
-        this.showModal("Login realizado com sucesso!", "success");
-        if (this.$router && this.$router.push) {
-          this.$router.push("/chat");
-        } else {
-          console.error("Router não configurado corretamente.");
+        
+        // Store authentication state
+        sessionStorage.setItem('isAuthenticated', 'true');
+        sessionStorage.setItem('userEmail', this.email);
+        
+        // Store token if available
+        if (response.data && response.data.token) {
+          sessionStorage.setItem('token', response.data.token);
         }
+
+        this.showModal("Login realizado com sucesso!", "success");
+        
+        // Navigate to chat after successful login
+        setTimeout(() => {
+          this.$router.push("/chat");
+        }, 3000);
       } catch (error) {
+        this.isLoading = false; // Hide loading on error
         if (error.response && error.response.status === 400) {
           this.showModal("Credenciais inválidas. Tente novamente.", "error");
         } else {
@@ -260,6 +283,7 @@ export default {
         console.error("Erro no login:", error.response?.data || error.message);
       }
     },
+
     handleError(error) {
       if (error.response) {
         const serverMessage =
@@ -279,6 +303,7 @@ export default {
       this.password = "";
       this.confirmPassword = "";
       this.isSignUp = false;
+      sessionStorage.clear();
     },
   },
 };
