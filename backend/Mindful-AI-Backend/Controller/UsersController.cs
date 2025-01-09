@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Mindful_AI_Backend.Models.Dtos;
+using Microsoft.EntityFrameworkCore;
+using Mindful_AI_Backend.Models;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -44,4 +46,5 @@ public class UsersController : ControllerBase
 
         return Ok(new { message = "Usuário excluído com sucesso." });
     }
+
 }

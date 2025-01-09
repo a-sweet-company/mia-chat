@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
+using System.Threading.Tasks;
 
 public interface IUserRepository
 {
@@ -8,6 +10,7 @@ public interface IUserRepository
     Task AddUserAsync(User user);
     void DeleteUser(User user); // Novo método
     Task SaveChangesAsync();
-
-
+    Task GetMessagesByUserAsync(int userId);
+    ActionResult<List<Message>> GetMessagesByUserAsync();
+    object AddUserAsync();
 }
