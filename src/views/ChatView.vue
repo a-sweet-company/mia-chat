@@ -111,18 +111,18 @@ export default {
       this.miaStatus = "Online";
     },
     handleError(error) {
-    // Defina os detalhes do erro
+    
     this.errorDetails = {
-      code: error.code || "000",  // Número do erro, caso exista
+      code: error.code || "000",  
       name: error.name || "Erro desconhecido",
       description: error.message || "Ocorreu um erro inesperado. Tente novamente.",
 
     };      
     this.showIntroModal = false,
     this.showSuggestions = false,
-    this.errorMessage = "Houve um erro!";  // Mensagem simples para exibir ao usuário
+    this.errorMessage = "Houve um erro!";  
     setTimeout(() => {
-      this.errorMessage = null;  // Fecha a mensagem após 5 segundos
+      this.errorMessage = null;  
       this.errorDetails = null;
     }, 10000);
   },
@@ -144,23 +144,32 @@ export default {
   color: var(--color-azul);
   padding: 5px;
   display: flex;
+  align-items: center;
+  
 }
 
 .suggestions-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10%;
+  margin-bottom: 100%;
+  align-items: center;
+  margin: top 100px;
 }
 
 .suggestion {
-  background-color: #f1f1f1;
-  padding: 10px;
-  margin-bottom: 5px;
-  border-radius: 5px;
+  background-color: none;
+  margin-bottom: 10px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
-  color: var(--color-preto);
+  color: var(--color-azul);
   text-align: center;
+  border: 1.5px solid var(--color-preto);
+  width: 65%;
+  padding-top: 8px;
+  padding-bottom: 8px ;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .suggestion:hover {
@@ -180,7 +189,7 @@ export default {
 .chat-container {
   margin: 0 auto;
   margin-top: 8px;
-  width: 70%;
+  width: 80%;
   height: 85vh;
   padding: 20px;
   padding-top: 73px; /* Espaço para o ChatStatus */
@@ -197,13 +206,14 @@ export default {
 
 .welcome-message {
   color: var(--color-preto);
-  padding: 10px;
   text-align: center;
   border-radius: 5px;
-  margin-top: 4%;
+  margin-bottom: 6%; /* Muda de 4% para 15px */
   font-size: 1.6rem;
   animation: fadeIn 1s;
   animation-timing-function: ease-in-out;
+  font-weight: 500;
+
 }
 
 @keyframes fadeIn {
@@ -214,6 +224,7 @@ export default {
     opacity: 1;
   }
 }
+
 .error-modal {
   position: fixed;
   top: 50%;
