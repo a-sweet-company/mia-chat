@@ -5,11 +5,6 @@
         <h2 class="chat-status-name">Mia</h2>
         <p class="chat-status-indicator">{{ currentStatus }}</p>
       </div>
-      <div class="chat-status-dots">
-        <span :class="{ active: activeDot === 1 }"></span>
-        <span :class="{ active: activeDot === 2 }"></span>
-        <span :class="{ active: activeDot === 3 }"></span>
-      </div>
     </div>
 </template>  
 
@@ -62,6 +57,7 @@ export default {
 
 .chat-status-icon {
   width: 60px;
+  margin-bottom: -10px;
   margin-right: 15px;
   object-fit: cover;
 }
@@ -80,24 +76,6 @@ export default {
   font-size: 0.8rem;
   color: var(--color-preto);
   margin: 0;
-}
-
-.chat-status-dots {
-  display: flex;
-  gap: 5px;
-}
-
-.chat-status-dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--color-azul);
-  transition: background-color 0.3s ease, transform 0.3s ease; 
-}
-
-.chat-status-dots span.active {
-  background-color: var(--color-cinza);
-  transform: scale(1.2);
 }
 </style>
 
