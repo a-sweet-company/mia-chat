@@ -80,9 +80,9 @@ export default {
       showInput: false,
       messages: [],
       suggestions: [
-        "Tenho me sentido meio perdido(a), como posso entender melhor o que estou sentindo?",
-        "Estou enfrentando alguns desafios no trabalho e não sei se estou no caminho certo.",
-        "As vezes parece que as coisas não vão para frente. Como posso lidar com essa sensação?",
+        "Você pode me ajudar a entender melhor como estou me sentindo?",
+        "Pode sugerir uma técnica para me ajudar a relaxar?",
+        "Como lidar com pensamentos negativos?",
       ],
       showSuggestions: false,
       errorMessage: null,  
@@ -157,9 +157,9 @@ export default {
 }
 
 .suggestion {
-  background-color: var(--color-branco);
+  background-color: none;
   margin-bottom: 10px;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
   color: var(--color-azul);
@@ -171,7 +171,6 @@ export default {
   font-size: 14px;
   font-weight: 600;
 }
-
 
 .suggestion:hover {
   background-color: #e0e0e0;
@@ -207,7 +206,6 @@ export default {
 
 .welcome-message {
   color: var(--color-preto);
-  
   text-align: center;
   border-radius: 5px;
   margin-bottom: 6%; /* Muda de 4% para 15px */
@@ -218,7 +216,6 @@ export default {
 
 }
 
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -227,6 +224,7 @@ export default {
     opacity: 1;
   }
 }
+
 .error-modal {
   position: fixed;
   top: 50%;

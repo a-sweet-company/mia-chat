@@ -136,13 +136,11 @@ export default {
 .loading-message {
   position: absolute;
   top: -40px;
-  left: 5%;
+  left: 2%;
   padding: 8px 16px;
-  border-radius: 20px;
-  background: var(--color-branco);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--color-cinza);
+  border-radius: 10px;
+  background: none;
 }
 
 .chat-status-dots {
