@@ -58,8 +58,6 @@ namespace Mindful_AI_Backend.Controller
 
             return CreatedAtAction(nameof(Get), 
                 new { id = messageUser.messageId }, messageUser);
-
-           
         }
 
          
