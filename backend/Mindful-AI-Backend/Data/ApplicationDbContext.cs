@@ -13,6 +13,15 @@ public class ApplicationDbContext : DbContext
     public DbSet<MessageAi> MessageAis { get; set; }
 
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Message>()
+            .HasKey(m => m.messageId);
+
+        modelBuilder.Entity<Message>()
+            .Property(m => m.messageId)
+            .ValueGeneratedOnAdd();
+    }
 
     //protected override void OnModelCreating(ModelBuilder modelBuilder)
     //{

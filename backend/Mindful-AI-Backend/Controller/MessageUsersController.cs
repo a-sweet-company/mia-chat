@@ -56,11 +56,13 @@ namespace Mindful_AI_Backend.Controller
             _context.MessageUsers.Add(messageUser);
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(Get), 
+            return CreatedAtAction(nameof(Get),
                 new { id = messageUser.messageId }, messageUser);
         }
 
-         
+
+
+
 
 
     }

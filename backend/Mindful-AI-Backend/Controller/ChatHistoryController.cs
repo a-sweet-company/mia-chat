@@ -8,12 +8,12 @@ using Mindful_AI_Backend.Models;
 [Route("api/[controller]")]
 public class ChatHistoryController : ControllerBase
 {
-    private readonly IUserRepository _userRepository;
+    //private readonly IUserRepository _userRepository;
 
-    public ChatHistoryController(IUserRepository userRepository)
-    {
-        _userRepository = userRepository;
-    }
+    //public ChatHistoryController(IUserRepository userRepository)
+    //{
+    //    _userRepository = userRepository;
+    //}
 
 
     private readonly ApplicationDbContext _context;
@@ -37,7 +37,7 @@ public class ChatHistoryController : ControllerBase
         return chat;
     }
 
-    [HttpPost("history/{userId}")]
+    [HttpPost]
     public ActionResult<ChatHistory> Post(ChatHistory chatHistory)
     {
 
@@ -51,9 +51,8 @@ public class ChatHistoryController : ControllerBase
 
         return CreatedAtAction(nameof(Get),
             new { id = chatHistory.Id }, chatHistory);
-
-
     }
+
 
     //[HttpGet("history/{userId}")]
     //public async Task<IActionResult> GetChatHistory(int userId)

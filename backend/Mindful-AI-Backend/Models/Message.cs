@@ -11,14 +11,17 @@ namespace Mindful_AI_Backend.Models
         public string textmMessage { get; set; }
         public DateTime Timestamp { get; set; }
 
-
-
-
-        public Message()
+        // Construtor parametrizado para uso em classes derivadas
+        protected Message(int messageId, string textMessage, DateTime timestamp)
         {
-            Timestamp = DateTime.UtcNow;
+            messageId = messageId;
+            textMessage = textMessage;
+            timestamp = timestamp;
         }
 
+        public Message() { }
+       
+       
     }
 
 }

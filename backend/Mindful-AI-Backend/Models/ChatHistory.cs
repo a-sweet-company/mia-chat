@@ -11,4 +11,7 @@ public class ChatHistory
     [Required(ErrorMessage = "O campo mensagem é obrigatório.")]
     public List<Message> Message { get; set; }
 
+    
+    public ChatHistory() { }
 }
+
